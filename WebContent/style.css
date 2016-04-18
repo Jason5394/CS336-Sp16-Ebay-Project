@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+a, a:visited{
+	text-decoration:none;	
+	color:blue;
+}
+
+#header{
+	text-align:center;
+}
+
+#footer{
+	position:fixed;
+	bottom:0;
+	right:0;
+	clear:both;
+}
+
+#content{
+	
+}
+
+#nav{
+	float:left;
+	width:200px;
+}
+
+#mainauctions{
+	float:right;
+	width:1000px;
+	text-align:center;
+}
+
