@@ -1,10 +1,15 @@
 package com.moviebay.pkg.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.moviebay.pkg.*;
 
 /**
  * Servlet implementation class SearchResServlet
@@ -25,8 +30,64 @@ public class SearchResServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		System.out.println("Got to this servlet.");
+		System.out.println("Got to SearchResServlet");
+		LinkedList<Item> itemResults;
+		LinkedList<Auction> auctionResults; 
+		String genre;
+		String duration;
+		String format;
+		String title;
+		
+		//retrieve user's search parameters
+		title = request.getParameter("title");
+		if (title.isEmpty()){	//User must have entered at least a title, otherwise refresh page
+			request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
+			return;
+		}
+		genre = request.getParameter("genre");
+		duration = request.getParameter("duration");
+		format = request.getParameter("format");
+		
+		//formulate the string to query DB with.
+		String insert_string = "SELECT * FROM Item I, Auction A WHERE I.auction_id=A.auction_id AND "
+				+ "A.end_datetime>NOW() AND "
+				+ "I.movie_title='" + title + "'";
+		if (genre != null){
+			String genre_query = " AND I.genre='"+ genre + "'";
+			insert_string = insert_string.concat(genre_query);
+		}
+		if (format != null){
+			String format_query = " AND I.movie_format='"+ format + "'";
+			insert_string = insert_string.concat(format_query);
+		}
+		if (duration != null){
+			String dur_query = "";
+			if (duration.equals("short"))
+				dur_query = " AND I.movie_length<30";
+			else if (duration.equals("medium"))
+				dur_query = " AND I.movie_length>=30 AND I.movie_length<=90";
+			else if (duration.equals("long"))
+				dur_query = " AND I.movie_length>90";
+			insert_string = insert_string.concat(dur_query);
+		}
+		insert_string = insert_string.concat(";");
+		System.out.println("Resulting query:");
+		System.out.println(insert_string);
+		
+		//Connecting and querying database for results
+		ApplicationDAO dao = new ApplicationDAO();
+		try{
+			itemResults = dao.queryDB(insert_string, Item.class);
+			auctionResults = dao.queryDB(insert_string, Auction.class);
+			request.setAttribute("itemResults", itemResults);
+			request.setAttribute("auctionResults", auctionResults);
+			System.out.println("Number of search results: " + itemResults.size());
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally{
+			dao.closeConnection();
+		}
+		request.getRequestDispatcher("/searchresults.jsp").forward(request, response);
 	}
 
 	/**

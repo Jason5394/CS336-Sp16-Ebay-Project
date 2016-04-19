@@ -15,7 +15,7 @@
 	<!-- Formatting the search bar and the options to narrow the search (genre, duration, format) -->
 	<div id="searchbar">
 		<form action="SearchResServlet" method="GET">	<!-- TODO: add action for search bar form -->
-			Search Movies: <input type="text" name="textfield"/>
+			Search Movies: <input type="text" name="title"/>
 			<input type="submit" value="Submit"/>
 			<br></br>
 			<select name="genre">

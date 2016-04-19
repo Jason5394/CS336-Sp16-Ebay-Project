@@ -11,6 +11,7 @@ import java.util.LinkedList;
 public class ApplicationDAO {
 	private static final String USER = "root";
 	private static final String PASS = "BecauseLwe3";
+	//private static final String PASS = "yourownpass";
 	private static final String URL = "jdbc:mysql://localhost:3306/projDB?autoReconnect=true";
 	private Connection connection = null;
 	
@@ -75,13 +76,17 @@ public class ApplicationDAO {
 					//TODO
 				}
 				else if (cls == Auction.class){
-					//TODO
+					answers.add((T) new Auction(rs.getInt("auction_id"), rs.getTimestamp("start_datetime"),
+							rs.getTimestamp("end_datetime"), rs.getFloat("minimum_increment_price"),
+							(Float)rs.getObject("hidden_minimum_price"), rs.getString("seller")));
 				}
 				else if (cls == Bid.class){
 					//TODO
 				}
 				else if (cls == Item.class){
-					//TODO
+					answers.add((T) new Item(rs.getInt("item_id"), rs.getInt("auction_id"), (Integer)rs.getObject("movie_length"),
+							rs.getString("seller"), rs.getString("movie_title"), rs.getString("genre"), 
+							rs.getString("description"), rs.getString("movie_format")));
 				}
 				else if (cls == Member.class){
 					answers.add((T) new Member(rs.getString("username"), rs.getString("first_name"),
