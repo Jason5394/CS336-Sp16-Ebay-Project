@@ -78,4 +78,14 @@
     <servlet-name>MakeAuctionServlet</servlet-name>
     <url-pattern>/MakeAuctionServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoadItemServlet</display-name>
+    <servlet-name>LoadItemServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.LoadItemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoadItemServlet</servlet-name>
+    <url-pattern>/LoadItemServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

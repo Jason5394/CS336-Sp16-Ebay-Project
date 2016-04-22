@@ -19,7 +19,7 @@
 		<br></br>
 		<input type="submit" value="Register"/>
 	</form>
-
+	
 	<br></br>
 	<div style="color: #FF0000;">${usernameTaken}</div>
 	<div style="color: #FF0000;">${noUsername}</div>

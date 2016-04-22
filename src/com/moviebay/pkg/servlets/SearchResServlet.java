@@ -22,14 +22,12 @@ public class SearchResServlet extends HttpServlet {
      */
     public SearchResServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		System.out.println("Got to SearchResServlet");
 		LinkedList<Item> itemResults;
 		LinkedList<Auction> auctionResults; 
@@ -49,16 +47,16 @@ public class SearchResServlet extends HttpServlet {
 		format = request.getParameter("format");
 		
 		//formulate the string to query DB with.
-		String insert_string = "SELECT * FROM Item I, Auction A WHERE I.auction_id=A.auction_id AND "
+		String query_string = "SELECT * FROM Item I, Auction A WHERE I.auction_id=A.auction_id AND "
 				+ "A.end_datetime>NOW() AND "
 				+ "I.movie_title='" + title + "'";
 		if (genre != null){
 			String genre_query = " AND I.genre='"+ genre + "'";
-			insert_string = insert_string.concat(genre_query);
+			query_string = query_string.concat(genre_query);
 		}
 		if (format != null){
 			String format_query = " AND I.movie_format='"+ format + "'";
-			insert_string = insert_string.concat(format_query);
+			query_string = query_string.concat(format_query);
 		}
 		if (duration != null){
 			String dur_query = "";
@@ -68,17 +66,17 @@ public class SearchResServlet extends HttpServlet {
 				dur_query = " AND I.movie_length>=30 AND I.movie_length<=90";
 			else if (duration.equals("long"))
 				dur_query = " AND I.movie_length>90";
-			insert_string = insert_string.concat(dur_query);
+			query_string = query_string.concat(dur_query);
 		}
-		insert_string = insert_string.concat(";");
+		query_string = query_string.concat(";");
 		System.out.println("Resulting query:");
-		System.out.println(insert_string);
+		System.out.println(query_string);
 		
 		//Connecting and querying database for results
 		ApplicationDAO dao = new ApplicationDAO();
 		try{
-			itemResults = dao.queryDB(insert_string, Item.class);
-			auctionResults = dao.queryDB(insert_string, Auction.class);
+			itemResults = dao.queryDB(query_string, Item.class);
+			auctionResults = dao.queryDB(query_string, Auction.class);
 			request.setAttribute("itemResults", itemResults);
 			request.setAttribute("auctionResults", auctionResults);
 			System.out.println("Number of search results: " + itemResults.size());

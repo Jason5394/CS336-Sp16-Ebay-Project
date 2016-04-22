@@ -28,7 +28,13 @@
 		<% 	
 			for (int i = 0; i < itemResults.size(); ++i){ %>
 		<tr>
-			<td><a href="searchresults.jsp"><%= itemResults.get(i).getTitle() %></a></td>
+			<td>
+				<form action="LoadItemServlet" method="post">
+				<input type="submit" value="${itemResults.get(i).getTitle()}"/>
+				<input type="hidden" name="itemId" value="${itemResults.get(i).getItemId()}"/>
+				<input type="hidden" name="auctionId" value="${auctionResults.get(i).getAuctionId()}"/>
+				</form>
+			</td>
 			<td><%= itemResults.get(i).getGenre() %></td>
 			<td><%= itemResults.get(i).getLength() %></td>
 			<td><%= itemResults.get(i).getFormat()%></td>
