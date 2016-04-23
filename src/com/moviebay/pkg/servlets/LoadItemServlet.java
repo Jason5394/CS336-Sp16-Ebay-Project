@@ -45,8 +45,8 @@ public class LoadItemServlet extends HttpServlet {
 		try{
 			item = dao.queryDB(itemQuery, Item.class);
 			auction = dao.queryDB(auctionQuery, Auction.class);
-			request.setAttribute("item", item);
-			request.setAttribute("auction", auction);
+			request.setAttribute("item", item.get(0));
+			request.setAttribute("auction", auction.get(0));
 		} catch(SQLException e){
 			e.printStackTrace();
 		} finally{

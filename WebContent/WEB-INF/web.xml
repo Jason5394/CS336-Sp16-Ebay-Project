@@ -88,4 +88,14 @@
     <servlet-name>LoadItemServlet</servlet-name>
     <url-pattern>/LoadItemServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProcessBidServlet</display-name>
+    <servlet-name>ProcessBidServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.ProcessBidServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProcessBidServlet</servlet-name>
+    <url-pattern>/ProcessBidServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
