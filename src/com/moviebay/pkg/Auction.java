@@ -11,10 +11,9 @@ public class Auction {
 	private Float topBid;
 	private String seller;			//foreign key references member
 	private String bidder;			//foreign key references member
-	private String winner; 			//foreign key references member
 	
 	public Auction(Integer auctionId, Timestamp startDateTime, Timestamp endDateTime, Float minimumIncrement,
-			Float hiddenMinimum, String seller, Float topBid, String bidder, String winner) {
+			Float hiddenMinimum, String seller, Float topBid, String bidder) {
 		this.auctionId = auctionId;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
@@ -23,7 +22,6 @@ public class Auction {
 		this.topBid = topBid;
 		this.seller = seller;
 		this.bidder = bidder;
-		this.winner = winner;
 	}
 	
 	public Auction(){
@@ -95,13 +93,4 @@ public class Auction {
 		this.bidder = bidder;
 	}
 	
-	public String getWinner() {
-		return winner;
-	}
-
-	public void setWinner(String winner) {
-		this.winner = winner;
-	}
-	
-		
 }

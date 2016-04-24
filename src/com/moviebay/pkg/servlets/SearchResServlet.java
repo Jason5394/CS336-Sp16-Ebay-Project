@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.moviebay.pkg.*;
 
@@ -36,6 +37,10 @@ public class SearchResServlet extends HttpServlet {
 		String format;
 		String title;
 		
+		//Get username of current session
+		HttpSession session = request.getSession();
+		String username = ((Member)session.getAttribute("currentUser")).getUsername();
+		
 		//retrieve user's search parameters
 		title = request.getParameter("title");
 		if (title.isEmpty()){	//User must have entered at least a title, otherwise refresh page
@@ -49,7 +54,8 @@ public class SearchResServlet extends HttpServlet {
 		//formulate the string to query DB with.
 		String query_string = "SELECT * FROM Item I, Auction A WHERE I.auction_id=A.auction_id AND "
 				+ "A.end_datetime>NOW() AND "
-				+ "I.movie_title='" + title + "'";
+				+ "I.movie_title='" + title + "' AND "
+				+ "I.seller<>'" + username + "';";
 		if (genre != null){
 			String genre_query = " AND I.genre='"+ genre + "'";
 			query_string = query_string.concat(genre_query);

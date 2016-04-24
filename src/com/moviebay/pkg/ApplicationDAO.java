@@ -67,6 +67,7 @@ public class ApplicationDAO {
 		ResultSet rs = null;
 		try{
 			prepState = connection.prepareStatement(query);
+			System.out.println(prepState.toString());
 			rs = prepState.executeQuery();
 			while(rs.next()){
 				if (cls == Alert.class){
@@ -79,10 +80,11 @@ public class ApplicationDAO {
 					answers.add((T) new Auction(rs.getInt("auction_id"), rs.getTimestamp("start_datetime"),
 							rs.getTimestamp("end_datetime"), rs.getFloat("minimum_increment_price"), 
 							(Float)rs.getObject("hidden_minimum_price"), rs.getString("seller"),
-							rs.getFloat("top_bid"), rs.getString("bidder"), rs.getString("winner")));
+							rs.getFloat("top_bid"), rs.getString("bidder")));
 				}
 				else if (cls == Bid.class){
-					//TODO
+					answers.add((T) new Bid(rs.getInt("bid_id"), rs.getFloat("bid_amount"), 
+							rs.getTimestamp("creation_datetime"), rs.getString("bidder"), rs.getInt("auction_id")));
 				}
 				else if (cls == Item.class){
 					answers.add((T) new Item(rs.getInt("item_id"), rs.getInt("auction_id"), (Integer)rs.getObject("movie_length"),
@@ -120,6 +122,7 @@ public class ApplicationDAO {
 		ResultSet rs = null;
 		try{
 			prepState = connection.prepareStatement(query);
+			System.out.println(prepState.toString());
 			rs = prepState.executeQuery();
 			while(rs.next()){
 				count = rs.getInt(1);
@@ -152,8 +155,8 @@ public class ApplicationDAO {
 			}
 			else if (cls == Auction.class){
 				insertString = "INSERT INTO Auction (auction_id, start_datetime, end_datetime,"
-						+ "minimum_increment_price, hidden_minimum_price, top_bid, seller, bidder, winner) "
-						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+						+ "minimum_increment_price, hidden_minimum_price, top_bid, seller, bidder) "
+						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
 				prepState = connection.prepareStatement(insertString);
 				prepState.setNull(1, Types.INTEGER);	//set NULL because first parameter is auto-incremented
 				prepState.setTimestamp(2, ((Auction) table).getStartDateTime());
@@ -163,10 +166,20 @@ public class ApplicationDAO {
 				prepState.setObject(6, (Float)((Auction) table).getTopBid());
 				prepState.setString(7, ((Auction) table).getSeller());
 				prepState.setString(8, ((Auction) table).getBidder());
-				prepState.setString(9, ((Auction) table).getWinner());
+				
+				System.out.println(prepState.toString());
 			}
 			else if (cls == Bid.class){
-				//TODO
+				insertString = "INSERT INTO Bid (bid_id, bid_amount, creation_datetime, bidder, auction_id) "
+						+ "VALUES(?, ?, ?, ?, ?);";
+				prepState = connection.prepareStatement(insertString);
+				prepState.setNull(1, Types.INTEGER);
+				prepState.setFloat(2, ((Bid) table).getBidAmount());
+				prepState.setTimestamp(3, ((Bid) table).getCreationDateTime());
+				prepState.setString(4, ((Bid) table).getBidder());
+				prepState.setInt(5, ((Bid) table).getAuctionId());
+				
+				System.out.println(prepState.toString());
 			}
 			else if (cls == Item.class){
 				insertString = "INSERT INTO Item (item_id, movie_title, genre, movie_length,"
@@ -180,6 +193,8 @@ public class ApplicationDAO {
 				prepState.setString(6, ((Item) table).getFormat());
 				prepState.setString(7, ((Item) table).getSeller());
 				prepState.setObject(8, (Integer)((Item) table).getAuctionId());
+				
+				System.out.println(prepState.toString());
 			}
 			else if (cls == Member.class){
 				insertString = "INSERT INTO Member (username, first_name, last_name, password, "
@@ -191,6 +206,8 @@ public class ApplicationDAO {
 				prepState.setString(4, ((Member) table).getPassword());
 				prepState.setBoolean(5, ((Member) table).getCusRepStatus());
 				prepState.setBoolean(6, ((Member) table).getAdminStatus());
+				
+				System.out.println(prepState.toString());
 			}
 			else if (cls == Question.class){
 				//TODO
@@ -216,6 +233,7 @@ public class ApplicationDAO {
 		PreparedStatement prepState = null;
 		try{
 			prepState = connection.prepareStatement(query);
+			System.out.println(prepState.toString());
 			prepState.executeUpdate();
 		} catch (SQLException e){
 			e.printStackTrace();

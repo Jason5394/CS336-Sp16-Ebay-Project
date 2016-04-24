@@ -119,7 +119,7 @@ public class MakeAuctionServlet extends HttpServlet {
 			Timestamp endDateTime = new Timestamp(startDateTime.getTime() + auctionLength*DAY_IN_MS);	//auction's end timestamp
 			HttpSession session = request.getSession();
 			String username = ((Member)session.getAttribute("currentUser")).getUsername();	//get current session's username
-			auction = new Auction(null, startDateTime, endDateTime, minimumIncrement, hiddenMinimum, username, 0.00f, null, null);
+			auction = new Auction(null, startDateTime, endDateTime, minimumIncrement, hiddenMinimum, username, 0.00f, null);
 			dao.insert(auction, Auction.class);
 			System.out.println("Auction inserted into DB");
 			int auctionId = dao.countDB("SELECT LAST_INSERT_ID();");

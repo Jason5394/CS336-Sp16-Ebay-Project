@@ -28,13 +28,18 @@
 		<b>Auction&nbsp;End:&nbsp;</b><%=auction.getEndDateTime() %> <br/>
 		<b>Minimum&nbsp;Increment:&nbsp;</b><%=auction.getMinimumIncrement() %> <br/>
 		<b>Current&nbsp;Bid:&nbsp;</b><%=auction.getTopBid() %> <br/>
+		<b>Minimum&nbsp;Bid:&nbsp;</b>${auction.getTopBid()+auction.getMinimumIncrement() }<br/>
 		<b>Bidder:&nbsp;</b><%=auction.getBidder() %> <br/>
-		<form action="ProcessBidServlet" method="get">
-			<input type="number" name="bid" min="${auction.getTopBid()+auction.getMinimumIncrement() }" step="0.01"/>
+		<form action="ProcessBidServlet" method="post">
+			<input type="number" name="bid" step="0.01"/>
 			<input type="submit" value="Bid"/>
-			<input type="hidden" name="itemId" value="${item.getItemId()}"/>
 			<input type="hidden" name="auctionId" value="${auction.getAuctionId()}"/>
+			<input type="hidden" name="itemId" value="${item.getItemId()}"/>
 		</form>
 	</div>
+	<div style="color: #FF0000;">${badBid}</div>
+	<div style="color: #FF0000;">${lowBid}</div>
+	<div style="color: #00FF00;">${goodBid}</div>
+	<div style="color: #FF0000;">${bidExpired}</div>
 </body>
 </html>

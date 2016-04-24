@@ -30,10 +30,8 @@ CREATE TABLE Auction (
 	seller 					VARCHAR(20) NOT NULL,
     top_bid					FLOAT(8,2) NOT NULL,
     bidder					VARCHAR(20),
-    winner					VARCHAR(20),
     FOREIGN KEY (seller) REFERENCES Member(username) ON DELETE CASCADE,
     FOREIGN KEY (bidder) REFERENCES Member(username) ON DELETE CASCADE,
-	FOREIGN KEY (winner) REFERENCES Member(username) ON DELETE CASCADE,
     PRIMARY KEY (auction_id)
 )ENGINE = INNODB;
 
@@ -54,15 +52,14 @@ CREATE TABLE Item (
 
 
 CREATE TABLE Bid (
+	bid_id				INT NOT NULL AUTO_INCREMENT,
     bid_amount 			FLOAT(8,2) NOT NULL,
     creation_datetime	DATETIME NOT NULL,
-	seller 				VARCHAR(20) NOT NULL,
+	bidder 				VARCHAR(20) NOT NULL,
 	auction_id			INT NOT NULL,
-	item_id				INT NOT NULL,
-    FOREIGN KEY (seller) REFERENCES Member(username) ON DELETE CASCADE,
+    FOREIGN KEY (bidder) REFERENCES Member(username) ON DELETE CASCADE,
     FOREIGN KEY (auction_id) REFERENCES Auction(auction_id) ON DELETE CASCADE,
-    FOREIGN KEY (item_id) REFERENCES Item(item_id) ON DELETE CASCADE,
-    PRIMARY KEY (seller, auction_id, item_id)
+    PRIMARY KEY (bid_id)
 )ENGINE = INNODB;
 
 
