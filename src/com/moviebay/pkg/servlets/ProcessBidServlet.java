@@ -3,6 +3,7 @@ package com.moviebay.pkg.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -85,7 +86,8 @@ public class ProcessBidServlet extends HttpServlet {
 		
 		ApplicationDAO dao = new ApplicationDAO();
 		try{
-			Timestamp now = new Timestamp(System.currentTimeMillis());
+			Date date = new Date();
+			Timestamp now = new Timestamp(date.getTime());
 			HttpSession session = request.getSession();
 			String username = ((Member)session.getAttribute("currentUser")).getUsername();	//get current member
 			auction = dao.queryDB(auction_query, Auction.class).get(0);

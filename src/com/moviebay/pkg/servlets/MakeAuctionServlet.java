@@ -3,6 +3,7 @@ package com.moviebay.pkg.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -102,6 +103,8 @@ public class MakeAuctionServlet extends HttpServlet {
 			request.setAttribute("badMinimumIncr", "Minimum increment must be filled.");
 			exit = true;
 		}
+		
+		//If any of the above errors occur, redirect to same page, displaying the error(s).
 		if (exit){
 			request.getRequestDispatcher("/makeauction.jsp").forward(request, response);
 			return;
@@ -115,7 +118,8 @@ public class MakeAuctionServlet extends HttpServlet {
 		//item = new Item(null, duration, , title, genre, description, format)
 		ApplicationDAO dao = new ApplicationDAO();
 		try{
-			Timestamp startDateTime = new Timestamp(System.currentTimeMillis());						//auction's start timestamp
+			Date now = new Date();
+			Timestamp startDateTime = new Timestamp(now.getTime());						//auction's start timestamp
 			Timestamp endDateTime = new Timestamp(startDateTime.getTime() + auctionLength*DAY_IN_MS);	//auction's end timestamp
 			HttpSession session = request.getSession();
 			String username = ((Member)session.getAttribute("currentUser")).getUsername();	//get current session's username

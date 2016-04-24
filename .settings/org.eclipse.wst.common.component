@@ -3,6 +3,6 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <property name="java-output-path" value="/Team18Project/build/classes"/>
-        <property name="context-root" value="Team18Project"/>
+        <property name="context-root" value="/DataMgtTeam18/"/>
     </wb-module>
 </project-modules>

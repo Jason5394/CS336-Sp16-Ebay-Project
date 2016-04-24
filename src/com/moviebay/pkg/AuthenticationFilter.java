@@ -37,7 +37,7 @@ public class AuthenticationFilter implements Filter {
 		// place your code here
 		String path = ((HttpServletRequest) request).getRequestURI();
 		System.out.println(path);
-		if (path.endsWith("index.jsp") || path.endsWith("register.jsp") || path.endsWith("/Team18Project/")
+		if (path.endsWith("index.jsp") || path.endsWith("register.jsp") || path.endsWith("/DataMgtTeam18/")
 				|| path.endsWith("login.jsp") || path.endsWith("LoginServlet") || path.endsWith("RegisterServlet"))
 			//if the uri are any of the above pages, filter does nothing and passes through.
 			chain.doFilter(request, response);
