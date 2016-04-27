@@ -55,7 +55,7 @@ public class SearchResServlet extends HttpServlet {
 		String query_string = "SELECT * FROM Item I, Auction A WHERE I.auction_id=A.auction_id AND "
 				+ "A.end_datetime>NOW() AND "
 				+ "I.movie_title='" + title + "' AND "
-				+ "I.seller<>'" + username + "';";
+				+ "I.seller<>'" + username+ "'";
 		if (genre != null){
 			String genre_query = " AND I.genre='"+ genre + "'";
 			query_string = query_string.concat(genre_query);

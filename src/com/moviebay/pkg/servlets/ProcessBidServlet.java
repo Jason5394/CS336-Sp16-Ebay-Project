@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import com.moviebay.pkg.ApplicationDAO;
 import com.moviebay.pkg.Auction;
 import com.moviebay.pkg.Bid;
-import com.moviebay.pkg.Item;
 import com.moviebay.pkg.Member;
 
 /**
@@ -34,55 +33,29 @@ public class ProcessBidServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String bid_str = request.getParameter("bid");
 		String auctionId_str = request.getParameter("auctionId");
 		String itemId_str = request.getParameter("itemId");
-	
+		
 		Float bid;
 		Integer auctionId;
-		Integer itemId;
+		
+		//setting attributes to pass along to LoadItemServlet
+		request.setAttribute("auctionId", auctionId_str);
+		request.setAttribute("itemId", itemId_str);
 		
 		auctionId = Integer.parseInt(auctionId_str);
-		itemId = Integer.parseInt(itemId_str);
+		//attempt to parse bid by user.  If fails, do nothing w/ the bid and pass along to next servlet
+		try{
+			bid = Float.parseFloat(bid_str);
+		} catch (NumberFormatException e){
+			e.printStackTrace();
+			request.setAttribute("badBid", "Please enter a valid bid amount.");
+			request.getRequestDispatcher("LoadItemServlet").forward(request, response);
+			return;
+		}
 		
 		String auction_query = "SELECT * FROM Auction WHERE auction_id=" + auctionId + ";";
-		String item_query = "SELECT * FROM Item WHERE item_id=" + itemId + ";";
-		
-		Auction auction;
-		Item item;
-		
-		//get auction and item objects to be able to reload page
-		ApplicationDAO dao2 = new ApplicationDAO();
-		try{
-			auction = dao2.queryDB(auction_query, Auction.class).get(0);
-			item = dao2.queryDB(item_query, Item.class).get(0);
-			//Parse bid into a float to see if it's a valid number
-			if (!bid_str.isEmpty()){
-				try{
-					bid = Float.parseFloat(bid_str);
-				} catch (NumberFormatException e){
-					e.printStackTrace();
-					dao2.closeConnection();
-					request.setAttribute("item", item);
-					request.setAttribute("auction", auction);
-					request.setAttribute("badBid", "Please enter a valid bid amount.");
-					request.getRequestDispatcher("/auctionpage.jsp").forward(request, response);
-					return;
-				}
-			}
-			else {
-				dao2.closeConnection();
-				request.setAttribute("item", item);
-				request.setAttribute("auction", auction);
-				request.getRequestDispatcher("/auctionpage.jsp").forward(request, response);
-				return;
-			}
-		} catch (SQLException e){
-			e.printStackTrace();
-		} finally {
-			dao2.closeConnection();
-		}
 		
 		ApplicationDAO dao = new ApplicationDAO();
 		try{
@@ -90,14 +63,14 @@ public class ProcessBidServlet extends HttpServlet {
 			Timestamp now = new Timestamp(date.getTime());
 			HttpSession session = request.getSession();
 			String username = ((Member)session.getAttribute("currentUser")).getUsername();	//get current member
-			auction = dao.queryDB(auction_query, Auction.class).get(0);
-			item = dao.queryDB(item_query, Item.class).get(0);
-			bid = Float.parseFloat(bid_str);
-			//Successful bid (bid is at least minimum incr bigger AND it's done before the auction end date)
+			Auction auction = dao.queryDB(auction_query, Auction.class).get(0);
+			
+			//Checking if Bid is a valid entry
+			
+			//if bid is within time limit
 			if (now.before(auction.getEndDateTime())){
-				//bid is within time limit
+				//if bid amount is high enough
 				if (bid >= (auction.getTopBid()+auction.getMinimumIncrement())){
-					//bid amount is high enough
 					Bid bidobj = new Bid(null, bid, now, username, auctionId);
 					dao.insert(bidobj, Bid.class);
 					String update_auction = "UPDATE Auction SET top_bid=" + bid_str + ", "
@@ -112,17 +85,15 @@ public class ProcessBidServlet extends HttpServlet {
 			} 
 			else {
 				//bid expired
-				request.setAttribute("bidExpired", "Bid has expired.");
+				request.setAttribute("expiredBid", "Bid has expired.");
 			}
-			request.setAttribute("item", item);
-			request.setAttribute("auction", auction);
 		} catch (SQLException e){
 			e.printStackTrace();
 		} finally {
 			dao.closeConnection();
 		}
-		
-		request.getRequestDispatcher("/auctionpage.jsp").forward(request, response);
+	
+		request.getRequestDispatcher("LoadItemServlet").forward(request, response);
 		return;
 	}
 

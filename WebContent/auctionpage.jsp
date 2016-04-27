@@ -9,13 +9,14 @@
 </head>
 <body>
 	<%	Item item = (Item)request.getAttribute("item");
-	Auction auction = (Auction)request.getAttribute("auction");	%>
+	Auction auction = (Auction)request.getAttribute("auction");	
+	LinkedList<Bid> bids = (LinkedList<Bid>)request.getAttribute("bids");%>
 	<div><a href="mainpage.jsp">Main Page</a></div>
 	<div>
 		<h3>Auction Page</h3>
 		<b>Title:&nbsp;</b><%=item.getTitle() %> <br/>
 		<b>Genre:&nbsp;</b><%=item.getGenre() %> <br/>
-		<b>Length&nbsp;(min):&nbsp;</b><%=item.getLength() %> <br/>
+		<b>Length&nbsp;(min):&nbsp;</b><s%=item.getLength() %> <br/>
 		<b>Format:&nbsp;</b><%=item.getFormat() %> 
 	</div>
 	<br/>
@@ -39,7 +40,19 @@
 	</div>
 	<div style="color: #FF0000;">${badBid}</div>
 	<div style="color: #FF0000;">${lowBid}</div>
-	<div style="color: #00FF00;">${goodBid}</div>
-	<div style="color: #FF0000;">${bidExpired}</div>
+	<div style="color: #009900;">${goodBid}</div>
+	<div style="color: #FF0000;">${expiredBid}</div>
+	<div>
+		<h4><b>Bid History</b></h4> 
+		<div id="scrollbox">
+			<%for (int i = 0; i < bids.size(); ++i){ %>
+				<div>
+					<i>Bid:&nbsp;</i><%=bids.get(i).getBidAmount() %><br/>
+					<i>Date:&nbsp;</i><%=bids.get(i).getCreationDateTime() %><br/>
+					<i>Bidder:&nbsp;</i><%=bids.get(i).getBidder() %><br/><br/>
+				</div>
+			<%} %>
+		</div>
+	</div>
 </body>
 </html>

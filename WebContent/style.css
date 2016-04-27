@@ -31,6 +31,15 @@ a, a:visited{
 	text-align:center;
 }
 
+#scrollbox{
+	height:300px;
+	width:600px;
+	border:1px solid
+	#ccc;
+	font:16px/26px Georgia, Garamond, Serif;
+	overflow:auto;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
