@@ -44,12 +44,14 @@
 	<div style="color: #FF0000;">${expiredBid}</div>
 	<div>
 		<h4><b>Bid History</b></h4> 
-		<div id="scrollbox">
+		<div class="scrollbox">
 			<%for (int i = 0; i < bids.size(); ++i){ %>
 				<div>
 					<i>Bid:&nbsp;</i><%=bids.get(i).getBidAmount() %><br/>
 					<i>Date:&nbsp;</i><%=bids.get(i).getCreationDateTime() %><br/>
-					<i>Bidder:&nbsp;</i><%=bids.get(i).getBidder() %><br/><br/>
+					<i>Bidder:&nbsp;</i>
+					<a href="ProcessProfileServlet?user=<%=bids.get(i).getBidder() %>"><%=bids.get(i).getBidder() %></a>
+					<br/><br/>
 				</div>
 			<%} %>
 		</div>

@@ -34,6 +34,7 @@ public class LoadItemServlet extends HttpServlet {
 		//get parameters from hidden field
 		String itemId = request.getParameter("itemId");
 		String auctionId = request.getParameter("auctionId");
+		
 		String goodBid = (String)request.getAttribute("goodBid");
 		String lowBid = (String)request.getAttribute("lowBid");
 		String expiredBid = (String)request.getAttribute("expiredBid");

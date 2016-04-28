@@ -8,6 +8,7 @@
 	<title>MoviEbay - main page</title>
 </head>
 <body>
+	<%	Member user = (Member)session.getAttribute("currentUser");%>
 	<div id="header">
 		<h2>MoviEbay</h2>
 	</div>
@@ -50,7 +51,7 @@
 		<div id="nav">
 			<h3>Navigation</h3>
 			<ul>
-				<li><a href="">View Profile</a></li>
+				<li><a href="ProcessProfileServlet?user=<%=user.getUsername()%>">View Profile</a></li>
 				<li><a href="makeauction.jsp">Auction an Item</a></li>
 				<li><a href="">Set an Alert</a></li>
 			</ul>
@@ -60,7 +61,7 @@
 		</div>
 	</div>
 	<div id="footer">
-		Logged in as: <%Member user = (Member)session.getAttribute("currentUser");
+		Logged in as: <%
 						if (session.getAttribute("currentUser") == null)
 						out.println("nobody");
 						else 

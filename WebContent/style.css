@@ -31,9 +31,9 @@ a, a:visited{
 	text-align:center;
 }
 
-#scrollbox{
+.scrollbox{
 	height:300px;
-	width:600px;
+	width:450px;
 	border:1px solid
 	#ccc;
 	font:16px/26px Georgia, Garamond, Serif;
