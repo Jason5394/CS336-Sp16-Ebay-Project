@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="style.css"/>	
 </head>
 <body>
-	<div><a href="mainpage.jsp">Main Page</a></div>
+	<div><a href="ProcessMainPageServlet">Main Page</a></div>
 	<% 	LinkedList<Item> itemResults = (LinkedList<Item>)request.getAttribute("itemResults");
 		LinkedList<Auction> auctionResults = (LinkedList<Auction>)request.getAttribute("auctionResults");
 		if (itemResults == null)

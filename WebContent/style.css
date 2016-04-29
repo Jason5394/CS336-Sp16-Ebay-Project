@@ -40,6 +40,16 @@ a, a:visited{
 	overflow:auto;
 }
 
+.mainscrollbox{
+	height:200px;
+	width:300px;
+	border:1px solid
+	#ccc;
+	font:14px/18px Georgia, Garamond, Serif;
+	overflow:auto;
+	margin:auto;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;

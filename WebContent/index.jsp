@@ -19,7 +19,7 @@
 		}
 		else {
 			out.println("<a href = \"LogoutServlet\">Logout</a>");
-			out.println("<br></br><a href = \"mainpage.jsp\">Main Page</a>");
+			out.println("<br></br><a href = \"ProcessMainPageServlet\">Main Page</a>");
 		}
 	%>
 	<br></br>

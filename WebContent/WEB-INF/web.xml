@@ -108,4 +108,14 @@
     <servlet-name>ProcessProfileServlet</servlet-name>
     <url-pattern>/ProcessProfileServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProcessMainPageServlet</display-name>
+    <servlet-name>ProcessMainPageServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.ProcessMainPageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProcessMainPageServlet</servlet-name>
+    <url-pattern>/ProcessMainPageServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

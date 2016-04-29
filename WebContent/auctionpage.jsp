@@ -11,7 +11,7 @@
 	<%	Item item = (Item)request.getAttribute("item");
 	Auction auction = (Auction)request.getAttribute("auction");	
 	LinkedList<Bid> bids = (LinkedList<Bid>)request.getAttribute("bids");%>
-	<div><a href="mainpage.jsp">Main Page</a></div>
+	<div><a href="ProcessMainPageServlet">Main Page</a></div>
 	<div>
 		<h3>Auction Page</h3>
 		<b>Title:&nbsp;</b><%=item.getTitle() %> <br/>

@@ -44,7 +44,7 @@ public class SearchResServlet extends HttpServlet {
 		//retrieve user's search parameters
 		title = request.getParameter("title");
 		if (title.isEmpty()){	//User must have entered at least a title, otherwise refresh page
-			request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
+			request.getRequestDispatcher("ProcessMainPageServlet").forward(request, response);
 			return;
 		}
 		genre = request.getParameter("genre");

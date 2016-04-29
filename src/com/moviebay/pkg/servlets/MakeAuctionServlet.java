@@ -131,7 +131,7 @@ public class MakeAuctionServlet extends HttpServlet {
 			item = new Item(null, auctionId, duration, username, title, genre, description, format);
 			dao.insert(item, Item.class);
 			System.out.println("Item inserted into DB");
-			request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
+			request.getRequestDispatcher("ProcessMainPageServlet").forward(request, response);
 		} catch(SQLException e){
 			e.printStackTrace();
 		} finally{

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class ApplicationDAO {
 	private static final String USER = "root";
-	private static final String PASS = "BecauseLwe3";
+	private static final String PASS = "Basis09";
 	//private static final String PASS = "yourownpass";
 	private static final String URL = "jdbc:mysql://localhost:3306/projDB?autoReconnect=true";
 	private Connection connection = null;

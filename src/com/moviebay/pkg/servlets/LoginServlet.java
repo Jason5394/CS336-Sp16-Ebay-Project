@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("username found");
 				HttpSession session = request.getSession();
 				session.setAttribute("currentUser", member.get(0));
-				request.getRequestDispatcher("/mainpage.jsp").forward(request, response);
+				request.getRequestDispatcher("ProcessMainPageServlet").forward(request, response);
 			}
 			else {
 				//user not found in database

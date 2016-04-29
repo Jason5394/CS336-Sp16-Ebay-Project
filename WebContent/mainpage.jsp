@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.moviebay.pkg.*" import="java.sql.Timestamp"%>
+    pageEncoding="ISO-8859-1" import="com.moviebay.pkg.*" import="java.sql.Timestamp" import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,7 +8,19 @@
 	<title>MoviEbay - main page</title>
 </head>
 <body>
-	<%	Member user = (Member)session.getAttribute("currentUser");%>
+	<%	
+		Member user = (Member)session.getAttribute("currentUser");
+		LinkedList<Item> currItems = (LinkedList<Item>)request.getAttribute("currItems");
+		LinkedList<Auction> currAucts = (LinkedList<Auction>)request.getAttribute("currAuctions");
+		LinkedList<Bid> currBids = (LinkedList<Bid>)request.getAttribute("currBids");
+		LinkedList<Item> pastItems = (LinkedList<Item>)request.getAttribute("pastItems");
+		LinkedList<Auction> pastAucts = (LinkedList<Auction>)request.getAttribute("pastAuctions");
+		LinkedList<Bid> pastBids = (LinkedList<Bid>)request.getAttribute("pastBids");
+		LinkedList<Item> currBidItems = (LinkedList<Item>)request.getAttribute("currBidItems");
+		LinkedList<Auction> currBidAucts = (LinkedList<Auction>)request.getAttribute("currBidAucts");
+		LinkedList<Item> pastBidItems = (LinkedList<Item>)request.getAttribute("pastBidItems");
+		LinkedList<Auction> pastBidAucts = (LinkedList<Auction>)request.getAttribute("pastBidAucts");
+	%>
 	<div id="header">
 		<h2>MoviEbay</h2>
 	</div>
@@ -57,7 +69,54 @@
 			</ul>
 		</div>
 		<div id="mainauctions">
-			<h3>Popular Auctions</h3>
+			<h3>Your Current Auctions</h3>
+			<div class="mainscrollbox">
+				<%for (int i = 0; i < currItems.size(); ++i){ 
+					int itemId = currItems.get(i).getItemId(); 
+					int auctionId = currAucts.get(i).getAuctionId();
+					
+					String seller = currAucts.get(i).getSeller();
+				%>
+					<i>Item:&nbsp;</i><a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=currItems.get(i).getTitle() %></a><br/>
+					<i>Auction&nbsp;End:&nbsp;</i><%=currAucts.get(i).getEndDateTime() %><br/><br/>
+				<%} %>
+			</div>
+			<h3>Your Current Bids</h3>
+			<div class="mainscrollbox">
+				<%for (int i = 0; i < currBids.size(); ++i){ 
+					int itemId = currBidItems.get(i).getItemId(); 
+					int auctionId = currBidAucts.get(i).getAuctionId();
+					String seller = currBidAucts.get(i).getSeller();
+				%>
+					<i>Item:&nbsp;</i><a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=currBidItems.get(i).getTitle() %></a><br/>
+					<i>Auction&nbsp;End:&nbsp;</i><%=currBidAucts.get(i).getEndDateTime() %><br/>
+					<i>Your&nbsp;Bid:&nbsp;</i><%=currBids.get(i).getBidAmount() %><br/><br/>
+				<%} %>
+			</div>
+			<h3>Your Past Auctions</h3>
+			<div class="mainscrollbox">
+				<%for (int i = 0; i < pastItems.size(); ++i){ 
+					int itemId = pastItems.get(i).getItemId(); 
+					int auctionId = pastAucts.get(i).getAuctionId();
+					String seller = pastAucts.get(i).getSeller();
+				%>
+					<i>Item:&nbsp;</i><a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=pastItems.get(i).getTitle() %></a><br/>
+					<i>Auction&nbsp;End:&nbsp;</i><%=pastAucts.get(i).getEndDateTime() %><br/>
+				<%} %>
+			</div>
+			<h3>Your Past Bids</h3>
+			<div class="mainscrollbox">
+				<%for (int i = 0; i < pastBids.size(); ++i){ 
+					int itemId = pastBidItems.get(i).getItemId(); 
+					int auctionId = pastBidAucts.get(i).getAuctionId();
+					String seller = pastBidAucts.get(i).getSeller();
+				%>
+					<i>Item:&nbsp;</i><a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=pastItems.get(i).getTitle() %></a><br/>
+					<i>Auction&nbsp;End:&nbsp;</i><%=pastAucts.get(i).getEndDateTime() %><br/>
+					<i>Winning&nbsp;Bid:&nbsp;</i><%=pastAucts.get(i).getTopBid() %><br/>
+					<i>Winner:&nbsp;</i><%=pastAucts.get(i).getBidder() %><br/><br/>
+				<%} %>
+			</div>
 		</div>
 	</div>
 	<div id="footer">
@@ -66,7 +125,7 @@
 						out.println("nobody");
 						else 
 						out.println(user.getUsername());%>
-		</br>
+		<br/>
 		<a href="LogoutServlet">Logout</a>
 	</div>
 </body>

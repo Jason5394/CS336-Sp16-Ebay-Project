@@ -15,7 +15,7 @@
 		LinkedList<Item> buy_items = (LinkedList<Item>)request.getAttribute("buyItems");
 		LinkedList<Item> sell_items = (LinkedList<Item>)request.getAttribute("sellItems");
 	%>
-	<div><a href="mainpage.jsp">Main Page</a></div>
+	<div><a href="ProcessMainPageServlet">Main Page</a></div>
 	<div>
 		<h2>Profile
 		</h2>
