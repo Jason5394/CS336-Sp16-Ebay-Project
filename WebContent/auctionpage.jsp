@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.moviebay.pkg.*" import ="java.util.*"%>
+    pageEncoding="ISO-8859-1" import="com.moviebay.pkg.*" import="java.util.*" import=java.sql.Timestamp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,9 +8,16 @@
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-	<%	Item item = (Item)request.getAttribute("item");
-	Auction auction = (Auction)request.getAttribute("auction");	
-	LinkedList<Bid> bids = (LinkedList<Bid>)request.getAttribute("bids");%>
+	<%	
+		Date date = new Date();
+		Timestamp now = new Timestamp(date.getTime());
+		Item item = (Item)request.getAttribute("item");
+		Auction auction = (Auction)request.getAttribute("auction");	
+		LinkedList<Bid> bids = (LinkedList<Bid>)request.getAttribute("bids");
+	%>
+	<%	if (now.after(auction.getEndDateTime())){%>
+		<div><h1 style="color:red;">This bid is now closed.</h1></div>
+	<%} %>	
 	<div><a href="ProcessMainPageServlet">Main Page</a></div>
 	<div>
 		<h3>Auction Page</h3>
