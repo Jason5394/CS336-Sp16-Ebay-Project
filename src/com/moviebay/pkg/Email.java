@@ -1,5 +1,5 @@
 package com.moviebay.pkg;
 
-public class Question {
+public class Email {
 
 }

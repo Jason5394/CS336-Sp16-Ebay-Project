@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class ApplicationDAO {
 	private static final String USER = "root";
-	private static final String PASS = "Basis09";
+	private static final String PASS = "BecauseLwe3";
 	//private static final String PASS = "yourownpass";
 	private static final String URL = "jdbc:mysql://localhost:3306/projDB?autoReconnect=true";
 	private Connection connection = null;
@@ -73,9 +73,6 @@ public class ApplicationDAO {
 				if (cls == Alert.class){
 					//TODO
 				}
-				else if (cls == Answer.class){
-					//TODO
-				}
 				else if (cls == Auction.class){
 					answers.add((T) new Auction(rs.getInt("auction_id"), rs.getTimestamp("start_datetime"),
 							rs.getTimestamp("end_datetime"), rs.getFloat("minimum_increment_price"), 
@@ -86,6 +83,9 @@ public class ApplicationDAO {
 					answers.add((T) new Bid(rs.getInt("bid_id"), rs.getFloat("bid_amount"), 
 							rs.getTimestamp("creation_datetime"), rs.getString("bidder"), rs.getInt("auction_id")));
 				}
+				else if (cls == Email.class){
+					//TODO
+				}
 				else if (cls == Item.class){
 					answers.add((T) new Item(rs.getInt("item_id"), rs.getInt("auction_id"), (Integer)rs.getObject("movie_length"),
 							rs.getString("seller"), rs.getString("movie_title"), rs.getString("genre"), 
@@ -95,9 +95,6 @@ public class ApplicationDAO {
 					answers.add((T) new Member(rs.getString("username"), rs.getString("first_name"),
 						rs.getString("last_name"), rs.getString("password"), rs.getBoolean("is_customer_rep"), 
 						rs.getBoolean("is_admin")));
-				}
-				else if (cls == Question.class){
-					//TODO
 				}
 				
 			}
@@ -150,9 +147,6 @@ public class ApplicationDAO {
 			if (cls == Alert.class){
 				//TODO
 			}
-			else if (cls == Answer.class){
-				//TODO
-			}
 			else if (cls == Auction.class){
 				insertString = "INSERT INTO Auction (auction_id, start_datetime, end_datetime,"
 						+ " minimum_increment_price, hidden_minimum_price, seller, top_bid, bidder, winner) "
@@ -182,6 +176,9 @@ public class ApplicationDAO {
 				
 				System.out.println(prepState.toString());
 			}
+			else if (cls == Email.class){
+				//TODO
+			}
 			else if (cls == Item.class){
 				insertString = "INSERT INTO Item (item_id, movie_title, genre, movie_length,"
 						+ " description, movie_format, seller, auction_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
@@ -209,9 +206,6 @@ public class ApplicationDAO {
 				prepState.setBoolean(6, ((Member) table).getAdminStatus());
 				
 				System.out.println(prepState.toString());
-			}
-			else if (cls == Question.class){
-				//TODO
 			}
 			// execute select SQL statement
 			prepState.executeUpdate();

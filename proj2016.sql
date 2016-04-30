@@ -1,8 +1,7 @@
 CREATE DATABASE IF NOT EXISTS projDB;
 USE projDB;
 
-DROP TABLE IF EXISTS Answer;
-DROP TABLE IF EXISTS Question;
+DROP TABLE IF EXISTS Email;
 DROP TABLE IF EXISTS Alert;
 DROP TABLE IF EXISTS Bid;
 DROP TABLE IF EXISTS Item;
@@ -76,25 +75,18 @@ CREATE TABLE Alert (
 )ENGINE = INNODB;
 
 
-CREATE TABLE Question (
-    question_id 		INT NOT NULL AUTO_INCREMENT,
-    question_string		TEXT,
-    datetime_asked 		DATETIME NOT NULL,
-	asker 				VARCHAR(20) NOT NULL,
-	PRIMARY KEY (question_id),
-    FOREIGN KEY (asker) REFERENCES Member(username)
-)ENGINE = INNODB;
+CREATE TABLE Email (
+	email_id			INT NOT NULL AUTO_INCREMENT,
+	sender				VARCHAR(20) NOT NULL,
+    recipient			VARCHAR(20) NOT NULL,
+    subject				VARCHAR(100),
+    date_time 			DATETIME NOT NULL,
+    content				TEXT,
+    PRIMARY KEY (email_id),
+    FOREIGN KEY (sender) REFERENCES Member(username),
+    FOREIGN KEY (recipient) REFERENCES Member(username)
+) ENGINE = INNODB;
 
 
-CREATE TABLE Answer (
-    answer_id 			INT	NOT NULL AUTO_INCREMENT,
-    answer_string		TEXT,
-    datetime_answered	DATETIME NOT NULL,
-	parent_question		INT NOT NULL,
-	answerer			VARCHAR(20),
-    PRIMARY KEY (answer_id),
-    FOREIGN KEY (parent_question) REFERENCES Question(question_id),
-    FOREIGN KEY (answerer) REFERENCES Member(username)
-)ENGINE = INNODB;
 
 
