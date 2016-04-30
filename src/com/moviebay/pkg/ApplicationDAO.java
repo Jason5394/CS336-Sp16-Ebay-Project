@@ -80,7 +80,7 @@ public class ApplicationDAO {
 					answers.add((T) new Auction(rs.getInt("auction_id"), rs.getTimestamp("start_datetime"),
 							rs.getTimestamp("end_datetime"), rs.getFloat("minimum_increment_price"), 
 							(Float)rs.getObject("hidden_minimum_price"), rs.getString("seller"),
-							rs.getFloat("top_bid"), rs.getString("bidder")));
+							rs.getFloat("top_bid"), rs.getString("bidder"), rs.getString("winner")));
 				}
 				else if (cls == Bid.class){
 					answers.add((T) new Bid(rs.getInt("bid_id"), rs.getFloat("bid_amount"), 
@@ -155,8 +155,8 @@ public class ApplicationDAO {
 			}
 			else if (cls == Auction.class){
 				insertString = "INSERT INTO Auction (auction_id, start_datetime, end_datetime,"
-						+ " minimum_increment_price, hidden_minimum_price, seller, top_bid, bidder) "
-						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+						+ " minimum_increment_price, hidden_minimum_price, seller, top_bid, bidder, winner) "
+						+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 				prepState = connection.prepareStatement(insertString);
 				prepState.setNull(1, Types.INTEGER);	//set NULL because first parameter is auto-incremented
 				prepState.setTimestamp(2, ((Auction) table).getStartDateTime());
@@ -166,6 +166,7 @@ public class ApplicationDAO {
 				prepState.setString(6, ((Auction) table).getSeller());
 				prepState.setObject(7, (Float)((Auction) table).getTopBid());	
 				prepState.setString(8, ((Auction) table).getBidder());
+				prepState.setString(9, ((Auction) table).getWinner());
 				
 				System.out.println(prepState.toString());
 			}

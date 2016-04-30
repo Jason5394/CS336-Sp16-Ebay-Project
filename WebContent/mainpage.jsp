@@ -113,8 +113,13 @@
 				%>
 					<i>Item:&nbsp;</i><a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=pastItems.get(i).getTitle() %></a><br/>
 					<i>Auction&nbsp;End:&nbsp;</i><%=pastAucts.get(i).getEndDateTime() %><br/>
-					<i>Winning&nbsp;Bid:&nbsp;</i><%=pastAucts.get(i).getTopBid() %><br/>
-					<i>Winner:&nbsp;</i><%=pastAucts.get(i).getBidder() %><br/><br/>
+					<%if (pastAucts.get(i).getWinner() == null){ %>
+						<i>Winner:&nbsp;</i>Nobody<br/><br/>
+					<%}
+					else { %>
+						<i>Winning&nbsp;Bid:&nbsp;</i><%=pastAucts.get(i).getTopBid() %><br/>
+						<i>Winner:&nbsp;</i><%=pastAucts.get(i).getWinner() %><br/><br/>
+					<%} %> 
 				<%} %>
 			</div>
 		</div>

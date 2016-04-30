@@ -58,11 +58,11 @@ public class ProcessMainPageServlet extends HttpServlet {
 				+ "i.seller='" + username + "' AND a.end_datetime <= NOW();";
 		//find items that user is still bidding on
 		String current_bid = "SELECT * FROM Bid b, Auction a, Item i WHERE b.bid_amount=(SELECT MAX(bid_amount) FROM Bid b2 WHERE"
-				+ " b2.auction_id=b.auction_id AND b2.bidder='a') AND b.auction_id=i.auction_id AND"
+				+ " b2.auction_id=b.auction_id AND b2.bidder='" + username + "') AND b.auction_id=i.auction_id AND"
 				+ " i.auction_id=a.auction_id AND a.end_datetime>NOW();";
 		//find items that user bid on but have completed
 		String completed_bid = "SELECT * FROM Bid b, Auction a, Item i WHERE b.bid_amount=(SELECT MAX(bid_amount) FROM Bid b2 WHERE"
-				+ " b2.auction_id=b.auction_id AND b2.bidder='a') AND b.auction_id=i.auction_id AND"
+				+ " b2.auction_id=b.auction_id AND b2.bidder='" + username + "') AND b.auction_id=i.auction_id AND"
 				+ " i.auction_id=a.auction_id AND a.end_datetime<=NOW();";
 		
 		ApplicationDAO dao = new ApplicationDAO();
