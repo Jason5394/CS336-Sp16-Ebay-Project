@@ -26,14 +26,14 @@
 			<th>Auction End</th>
 		</tr>
 		<% 	
-			for (int i = 0; i < itemResults.size(); ++i){ %>
+			for (int i = 0; i < itemResults.size(); ++i){ 
+				String title = itemResults.get(i).getTitle();
+				Integer itemId = itemResults.get(i).getItemId();
+				Integer auctionId = itemResults.get(i).getAuctionId();
+		%>
 		<tr>
 			<td>
-				<form action="LoadItemServlet" method="post">
-				<input type="submit" value="${itemResults.get(i).getTitle()}"/>
-				<input type="hidden" name="itemId" value="${itemResults.get(i).getItemId()}"/>
-				<input type="hidden" name="auctionId" value="${auctionResults.get(i).getAuctionId()}"/>
-				</form>
+				<a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=title%></a>
 			</td>
 			<td><%= itemResults.get(i).getGenre() %></td>
 			<td><%= itemResults.get(i).getLength() %></td>

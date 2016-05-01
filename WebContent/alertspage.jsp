@@ -51,15 +51,26 @@
 				<th>Format</th>
 			</tr>
 			<% 	
-				for (int i = 0; i < alerts.size(); ++i){ %>
+				for (int i = 0; i < alerts.size(); ++i){
+					String title = alerts.get(i).getMovieTitle();
+					String genre = alerts.get(i).getGenre();
+					String format = alerts.get(i).getMovieFormat();		
+					String href = "SearchResServlet?format=" + format;
+					if (title != null)
+						href += "&title=" + title;
+					if (genre != null)
+						href += "&genre=" + genre;
+			%>
 			<tr>
 				<td>
 					<form action="RemoveAlertServlet" method="post">
-					<input type="submit" value="Remove"/>
-					<input type="hidden" name="alertId" value="${alerts.get(i).getAlertId()}"/>
+						<input type="submit" value="Remove"/>
+						<input type="hidden" name="alertId" value="${alerts.get(i).getAlertId()}"/>
 					</form>
 				</td>
-				<td><%= alerts.get(i).getMovieTitle() %></td>
+				<td>
+					<a href=<%=href%>><%=title%></a>
+				</td>
 				<td><%= alerts.get(i).getGenre() %></td>
 				<td><%= alerts.get(i).getMovieFormat()%></td>
 			</tr>
