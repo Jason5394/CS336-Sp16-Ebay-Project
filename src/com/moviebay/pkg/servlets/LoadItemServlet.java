@@ -35,16 +35,6 @@ public class LoadItemServlet extends HttpServlet {
 		String itemId = request.getParameter("itemId");
 		String auctionId = request.getParameter("auctionId");
 		
-		String goodBid = (String)request.getAttribute("goodBid");
-		String lowBid = (String)request.getAttribute("lowBid");
-		String expiredBid = (String)request.getAttribute("expiredBid");
-		String badBid = (String)request.getAttribute("badBid");
-		
-		request.setAttribute("goodBid", goodBid);
-		request.setAttribute("lowBid", lowBid);
-		request.setAttribute("expiredBid", expiredBid);
-		request.setAttribute("badBid", badBid);
-		
 		LinkedList<Item> item;
 		LinkedList<Auction> auction;
 		LinkedList<Bid> bids; 

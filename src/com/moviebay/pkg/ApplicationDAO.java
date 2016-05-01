@@ -71,7 +71,8 @@ public class ApplicationDAO {
 			rs = prepState.executeQuery();
 			while(rs.next()){
 				if (cls == Alert.class){
-					//TODO
+					answers.add((T) new Alert(rs.getInt("alert_id"), rs.getString("movie_title"), rs.getString("genre"),
+							rs.getString("movie_format"), rs.getString("owner")));
 				}
 				else if (cls == Auction.class){
 					answers.add((T) new Auction(rs.getInt("auction_id"), rs.getTimestamp("start_datetime"),
@@ -145,7 +146,14 @@ public class ApplicationDAO {
 		
 		try{
 			if (cls == Alert.class){
-				//TODO
+				insertString = "INSERT INTO Alert (alert_id, movie_title, genre, movie_format, owner) "
+						+ "VALUES(?, ?, ?, ?, ?);";
+				prepState = connection.prepareStatement(insertString);
+				prepState.setNull(1, Types.INTEGER);	//set NULL because first parameter is auto-incremented
+				prepState.setString(2, ((Alert) table).getMovieTitle());
+				prepState.setString(3, ((Alert) table).getGenre());
+				prepState.setString(4, ((Alert) table).getMovieFormat());
+				prepState.setString(5, ((Alert) table).getOwner());
 			}
 			else if (cls == Auction.class){
 				insertString = "INSERT INTO Auction (auction_id, start_datetime, end_datetime,"

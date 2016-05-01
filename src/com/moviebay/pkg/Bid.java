@@ -30,6 +30,7 @@ public class Bid {
 	public void setBidId(Integer bid_id){
 		this.bid_id = bid_id;
 	}
+	
 	public Float getBidAmount(){
 		return bid_amount;
 	}

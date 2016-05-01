@@ -118,4 +118,34 @@
     <servlet-name>ProcessMainPageServlet</servlet-name>
     <url-pattern>/ProcessMainPageServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProcessAlertServlet</display-name>
+    <servlet-name>ProcessAlertServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.ProcessAlertServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProcessAlertServlet</servlet-name>
+    <url-pattern>/ProcessAlertServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MakeAlertServlet</display-name>
+    <servlet-name>MakeAlertServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.MakeAlertServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MakeAlertServlet</servlet-name>
+    <url-pattern>/MakeAlertServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemoveAlertServlet</display-name>
+    <servlet-name>RemoveAlertServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.RemoveAlertServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveAlertServlet</servlet-name>
+    <url-pattern>/RemoveAlertServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

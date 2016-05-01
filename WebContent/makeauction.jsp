@@ -8,6 +8,7 @@
 	<title>Make an Auction</title>
 </head>
 <body>
+	<div><a href="ProcessMainPageServlet">Main Page</a></div>
 	<div>
 		<h2>Auction a Movie</h2>
 	</div>

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.moviebay.pkg.ApplicationDAO;
 import com.moviebay.pkg.Auction;
-import com.moviebay.pkg.Bid;
 import com.moviebay.pkg.Item;
 import com.moviebay.pkg.Member;
 
