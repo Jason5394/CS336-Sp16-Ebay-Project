@@ -73,9 +73,10 @@ public class ProcessBidServlet extends HttpServlet {
 				if (bid >= (auction.getTopBid()+auction.getMinimumIncrement())){
 					Bid bidobj = new Bid(null, bid, now, username, auctionId);
 					dao.insert(bidobj, Bid.class);
-					String update_auction = "UPDATE Auction SET top_bid=" + bid_str + ", "
+					//replaced by trigger "topbid"
+					/*String update_auction = "UPDATE Auction SET top_bid=" + bid_str + ", "
 							+ "bidder='" + username + "' WHERE auction_id=" + auctionId_str + ";";
-					dao.del_or_upd(update_auction);
+					dao.del_or_upd(update_auction);*/
 					//set new attributes
 					request.setAttribute("goodBid", "Bid of " + bid_str + " successful.");
 				} else {
