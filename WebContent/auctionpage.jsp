@@ -44,11 +44,20 @@
 			<input type="hidden" name="auctionId" value="${auction.getAuctionId()}"/>
 			<input type="hidden" name="itemId" value="${item.getItemId()}"/>
 		</form>
+		<form action="MakeUpperLimServlet" method="post">
+			<input type="number" name="upperLimit" step="0.01"/>
+			<input type="submit" value="Upper Limit (Auto-bid)"/>
+			<input type="hidden" name="auctionId" value="${auction.getAuctionId()}"/>
+			<input type="hidden" name="itemId" value="${item.getItemId()}"/>
+		</form>
 	</div>
 	<div style="color: #FF0000;">${badBid}</div>
 	<div style="color: #FF0000;">${lowBid}</div>
 	<div style="color: #009900;">${goodBid}</div>
 	<div style="color: #FF0000;">${expiredBid}</div>
+	<div style="color: #FF0000;">${badLim}</div>
+	<div style="color: #FF0000;">${lowLim}</div>
+	<div style="color: #009900;">${goodLim}</div>
 	<div>
 		<h4><b>Bid History</b></h4> 
 		<div class="scrollbox">

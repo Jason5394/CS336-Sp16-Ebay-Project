@@ -43,11 +43,11 @@ a, a:visited{
 .mainscrollbox{
 	height:200px;
 	width:300px;
-	border:1px solid
-	#ccc;
+	border:1px solid #ccc;
 	font:14px/18px Georgia, Garamond, Serif;
 	overflow:auto;
 	margin:auto;
+	text-align:left;
 }
 
 table, th, td {

@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS projDB;
 USE projDB;
 
+DROP TABLE IF EXISTS UpperLimit;
 DROP TABLE IF EXISTS Email;
 DROP TABLE IF EXISTS Alert;
 DROP TABLE IF EXISTS Bid;
@@ -87,6 +88,12 @@ CREATE TABLE Email (
     FOREIGN KEY (recipient) REFERENCES Member(username)
 ) ENGINE = INNODB;
 
-
-
+CREATE TABLE UpperLimit (
+	auction_id			INT NOT NULL,
+    bidder				VARCHAR(20) NOT NULL,
+    upper_limit			FLOAT(8,2) NOT NULL,
+    PRIMARY KEY (auction_id, bidder),
+    FOREIGN KEY (auction_id) REFERENCES Auction(auction_id),
+    FOREIGN KEY (bidder) REFERENCES Member(username)
+) ENGINE = INNODB;
 

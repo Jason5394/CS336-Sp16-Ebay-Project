@@ -97,6 +97,9 @@ public class ApplicationDAO {
 						rs.getString("last_name"), rs.getString("password"), rs.getBoolean("is_customer_rep"), 
 						rs.getBoolean("is_admin")));
 				}
+				else if (cls == UpperLimit.class){
+					answers.add((T) new UpperLimit(rs.getInt("auction_id"), rs.getString("bidder"), rs.getFloat("upper_limit")));
+				}
 				
 			}
 		} catch (SQLException e){
@@ -212,6 +215,15 @@ public class ApplicationDAO {
 				prepState.setString(4, ((Member) table).getPassword());
 				prepState.setBoolean(5, ((Member) table).getCusRepStatus());
 				prepState.setBoolean(6, ((Member) table).getAdminStatus());
+				
+				System.out.println(prepState.toString());
+			}
+			else if (cls == UpperLimit.class){
+				insertString = "INSERT INTO UpperLimit (auction_id, bidder, upper_limit) VALUES(?, ?, ?);";
+				prepState = connection.prepareStatement(insertString);
+				prepState.setInt(1, ((UpperLimit) table).getAuctionId());
+				prepState.setString(2, ((UpperLimit) table).getBidder());
+				prepState.setFloat(3, ((UpperLimit) table).getUpperLimit());	
 				
 				System.out.println(prepState.toString());
 			}

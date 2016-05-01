@@ -15,6 +15,7 @@ import com.moviebay.pkg.Auction;
 import com.moviebay.pkg.Bid;
 import com.moviebay.pkg.Item;
 import com.moviebay.pkg.Member;
+import com.moviebay.pkg.UpperLimit;
 
 /**
  * Servlet implementation class ProcessMainPageServlet
@@ -49,6 +50,7 @@ public class ProcessMainPageServlet extends HttpServlet {
 		LinkedList<Auction> currBidAucts;
 		LinkedList<Item> pastBidItems;
 		LinkedList<Auction> pastBidAucts; 
+		LinkedList<UpperLimit> upperLimits;
 		
 		//find items that user is still auctioning
 		String current_auction = "SELECT * FROM Auction a, Item i WHERE i.auction_id=a.auction_id AND i.seller=a.seller AND "
@@ -64,7 +66,9 @@ public class ProcessMainPageServlet extends HttpServlet {
 		String completed_bid = "SELECT * FROM Bid b, Auction a, Item i WHERE b.bid_amount=(SELECT MAX(bid_amount) FROM Bid b2 WHERE"
 				+ " b2.auction_id=b.auction_id AND b2.bidder='" + username + "') AND b.auction_id=i.auction_id AND"
 				+ " i.auction_id=a.auction_id AND a.end_datetime<=NOW();";
-		
+		//find list of all upper limits that user has
+		String upper_limit = "SELECT * FROM UpperLimit u, Auction a WHERE u.auction_id=a.auction_id AND a.end_datetime > NOW() "
+				+ "AND u.bidder='" + username + "';";
 		ApplicationDAO dao = new ApplicationDAO();
 		try{
 			//query items
@@ -78,6 +82,7 @@ public class ProcessMainPageServlet extends HttpServlet {
 			currBidAucts = dao.queryDB(current_bid, Auction.class);
 			pastBidItems = dao.queryDB(completed_bid, Item.class);
 			pastBidAucts = dao.queryDB(completed_bid, Auction.class);
+			upperLimits = dao.queryDB(upper_limit, UpperLimit.class);
 			
 			//set attributes
 			request.setAttribute("currItems", currItems);
@@ -90,7 +95,7 @@ public class ProcessMainPageServlet extends HttpServlet {
 			request.setAttribute("currBidAucts", currBidAucts);
 			request.setAttribute("pastBidItems", pastBidItems);
 			request.setAttribute("pastBidAucts", pastBidAucts);
-			
+			request.setAttribute("upperLimits", upperLimits);
 			//debugging
 			System.out.println(currItems.size() + " " + currAuctions.size());
 			System.out.println(pastItems.size() + " " + pastAuctions.size());

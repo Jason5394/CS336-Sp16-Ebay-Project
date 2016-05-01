@@ -148,4 +148,14 @@
     <servlet-name>RemoveAlertServlet</servlet-name>
     <url-pattern>/RemoveAlertServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MakeUpperLimServlet</display-name>
+    <servlet-name>MakeUpperLimServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.MakeUpperLimServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MakeUpperLimServlet</servlet-name>
+    <url-pattern>/MakeUpperLimServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -20,6 +20,7 @@
 		LinkedList<Auction> currBidAucts = (LinkedList<Auction>)request.getAttribute("currBidAucts");
 		LinkedList<Item> pastBidItems = (LinkedList<Item>)request.getAttribute("pastBidItems");
 		LinkedList<Auction> pastBidAucts = (LinkedList<Auction>)request.getAttribute("pastBidAucts");
+		LinkedList<UpperLimit> upperLimits = (LinkedList<UpperLimit>)request.getAttribute("upperLimits");
 	%>
 	<div id="header">
 		<h2>MoviEbay</h2>
@@ -74,11 +75,12 @@
 				<%for (int i = 0; i < currItems.size(); ++i){ 
 					int itemId = currItems.get(i).getItemId(); 
 					int auctionId = currAucts.get(i).getAuctionId();
-					
 					String seller = currAucts.get(i).getSeller();
+					Float topBid = currAucts.get(i).getTopBid();
 				%>
 					<i>Item:&nbsp;</i><a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=currItems.get(i).getTitle() %></a><br/>
-					<i>Auction&nbsp;End:&nbsp;</i><%=currAucts.get(i).getEndDateTime() %><br/><br/>
+					<i>Auction&nbsp;End:&nbsp;</i><%=currAucts.get(i).getEndDateTime() %><br/>
+					<i>Top&nbsp;Bid:&nbsp;</i><%=topBid %><br/><br/>
 				<%} %>
 			</div>
 			<h3>Your Current Bids</h3>
@@ -87,10 +89,18 @@
 					int itemId = currBidItems.get(i).getItemId(); 
 					int auctionId = currBidAucts.get(i).getAuctionId();
 					String seller = currBidAucts.get(i).getSeller();
+					Float topBid = currBidAucts.get(i).getTopBid();
+					String upperLimit = "none";
+					for (int j = 0; j < upperLimits.size(); ++j){
+						if (upperLimits.get(j).getAuctionId() == auctionId)
+							upperLimit = upperLimits.get(j).getUpperLimit().toString();
+					}
 				%>
 					<i>Item:&nbsp;</i><a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=currBidItems.get(i).getTitle() %></a><br/>
 					<i>Auction&nbsp;End:&nbsp;</i><%=currBidAucts.get(i).getEndDateTime() %><br/>
-					<i>Your&nbsp;Bid:&nbsp;</i><%=currBids.get(i).getBidAmount() %><br/><br/>
+					<i>Your&nbsp;Bid:&nbsp;</i><%=currBids.get(i).getBidAmount() %><br/>
+					<i>Top&nbsp;Bid:&nbsp;</i><%=topBid %><br/>
+					<i>Upper&nbsp;Limit:&nbsp;</i><%=upperLimit %><br/><br/>
 				<%} %>
 			</div>
 			<h3>Your Past Auctions</h3>
