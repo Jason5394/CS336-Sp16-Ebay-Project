@@ -2,7 +2,6 @@ package com.moviebay.pkg.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,9 +70,9 @@ public class MakeUpperLimServlet extends HttpServlet {
 			return;
 		}
 		
-		String upper_update = "INSERT INTO UpperLimit (auction_id, bidder, upper_limit) "
-				+ "VALUES(" + auctionId + ", '" + username + "', " + upperLimf + ") "
-						+ "ON DUPLICATE KEY UPDATE upper_limit=" + upperLimf + ";";
+		String upper_update = "REPLACE INTO UpperLimit (auction_id, bidder, upper_limit) "
+				+ "VALUES(" + auctionId + ", '" + username + "', " + upperLimf + ");";
+		//String upper_update = "UPDATE UpperLimit SET "/
 		ApplicationDAO dao2 = new ApplicationDAO();
 		try{
 			dao2.del_or_upd(upper_update);
