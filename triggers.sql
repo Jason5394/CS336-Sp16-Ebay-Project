@@ -57,7 +57,7 @@ BEGIN
     );
     IF (max_others > min_bid) THEN
 		SET max_final = max_others;
-	ELSEIF (min_bid >= max_others) THEN
+	ELSE
 		SET max_final = min_bid;
 	END IF;
     IF (NEW.upper_limit >= max_final) THEN
