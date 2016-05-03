@@ -8,9 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.moviebay.pkg.ApplicationDAO;
 import com.moviebay.pkg.Member;
+import com.oracle.jrockit.jfr.RequestableEvent;
 
 
 /**
@@ -59,6 +61,9 @@ public class RegisterServlet extends HttpServlet {
 			request.getRequestDispatcher("/register.jsp").forward(request, response);
 			return;
 		}
+		
+		HttpSession session = request.getSession();
+		Member currentUser = (Member)session.getAttribute("currentUser");
 		String query = "SELECT * FROM Member WHERE username = '" + user + "';";
 		ApplicationDAO dao = new ApplicationDAO();
 		//Connection connectdb = dao.getConnection();
@@ -67,8 +72,18 @@ public class RegisterServlet extends HttpServlet {
 			//checking if username exists in database
 			if (members.size() == 0){
 				//username is okay!
-				dao.insert(new Member(user, firstname, lastname, password, false, false), Member.class);
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				
+				//if a regular user is creating his own account
+				if (currentUser == null){
+					dao.insert(new Member(user, firstname, lastname, password, false, false), Member.class);
+					request.getRequestDispatcher("/index.jsp").forward(request, response);
+				}
+				//if an admin is creating a customer rep account
+				else if (currentUser.getAdminStatus() == true){
+					dao.insert(new Member(user, firstname, lastname, password, true, false), Member.class);
+					request.getRequestDispatcher("ProcessMainPageServlet").forward(request, response);
+				}
+				
 			}
 			else{
 				//username is already taken
