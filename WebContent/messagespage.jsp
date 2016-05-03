@@ -22,7 +22,7 @@
 		</form>
 		<div style="color: #FF0000;">${noRecipient}</div>
 		<div style="color: #FF0000;">${noContent}</div>
-		<div style="color: #009900;">${goodMessage}</div>
+		<div style="color: #009900;">${goodEmail}</div>
 	</div>
 	<div>
 		<h3>Your&nbsp;Recent&nbsp;Messages</h3>
@@ -36,8 +36,8 @@
 					String content = emails.get(i).getContent();
 				%>
 					<i>From:&nbsp;</i><%=sender%><br/>
-					<i>To:&nbsp;</i><%=recipient%><br/>
-					<i>Subject&nbsp;</i><%=subject%><br/>
+					<i>To:&nbsp;</i><%=recipient %><br/>
+					<i>Subject:&nbsp;</i><%=subject %><br/>
 					<i>Body:&nbsp;</i><%=content%><br/><br/>
 				<%} %>
 			</div>

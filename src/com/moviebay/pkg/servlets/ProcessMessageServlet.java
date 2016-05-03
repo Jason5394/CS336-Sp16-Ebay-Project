@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import com.moviebay.pkg.Member;
 /**
  * Servlet implementation class ProcessMessageServlet
  */
+@WebServlet("/processMessage")
 public class ProcessMessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,12 +36,13 @@ public class ProcessMessageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String username = ((Member)session.getAttribute("currentUser")).getUsername();
-		String email_query = "SELECT * FROM Email WHERE sender='" + username + " OR WHERE recipient='" + username + "';";
+		String email_query = "SELECT * FROM Email WHERE sender='" + username + "' OR recipient='" + username + "';";
 		LinkedList<Email> emails; 
 		ApplicationDAO dao = new ApplicationDAO();
 		try {
 			emails = dao.queryDB(email_query, Email.class);
 			request.setAttribute("emails", emails);
+			System.out.println("Number of emails: " + emails.size());
 		} catch(SQLException e){
 			e.printStackTrace();
 		} finally {

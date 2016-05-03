@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import com.moviebay.pkg.Member;
 /**
  * Servlet implementation class MakeAlertServlet
  */
+@WebServlet("/makeMessage")
 public class MakeMessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,12 +40,15 @@ public class MakeMessageServlet extends HttpServlet {
 		String recipient = request.getParameter("recipient");
 		String subject = request.getParameter("subject");
 		String content = request.getParameter("content");
+		
+		//Error checking
 		if (recipient == null || recipient.trim() == "")
 		{
 			request.setAttribute("noRecipient", "Must specify another user as the recipient of your message.");
 			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
 			return;
 		}
+		//Check for existent recipient
 		String user_query = "SELECT * FROM Member WHERE username = '" + recipient + "';";
 		LinkedList<Member> members = null; 
 		ApplicationDAO dao = new ApplicationDAO();
@@ -60,6 +65,7 @@ public class MakeMessageServlet extends HttpServlet {
 			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
 			return;
 		}
+		//More error checking
 		if (subject == null || subject.trim() == "")
 		{
 			subject = "No Subject";
@@ -70,11 +76,14 @@ public class MakeMessageServlet extends HttpServlet {
 			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
 			return;
 		}
+		//Adding more parameters
 		HttpSession session = request.getSession();
 		String username = ((Member)session.getAttribute("currentUser")).getUsername();
 		Date now = new Date();
 		Timestamp dateTime = new Timestamp(now.getTime());	
 		Email email = new Email(null, username, recipient, subject, dateTime, content);
+		
+		//Query DB
 		ApplicationDAO dao2 = new ApplicationDAO();
 		try{
 			dao2.insert(email, Email.class);
