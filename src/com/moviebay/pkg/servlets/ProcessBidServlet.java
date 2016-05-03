@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import com.moviebay.pkg.ApplicationDAO;
 import com.moviebay.pkg.Auction;
 import com.moviebay.pkg.Bid;
 import com.moviebay.pkg.Member;
+import com.moviebay.pkg.UpperLimit;
 
 /**
  * Servlet implementation class ProcessBidServlet
@@ -54,23 +56,26 @@ public class ProcessBidServlet extends HttpServlet {
 			request.getRequestDispatcher("LoadItemServlet").forward(request, response);
 			return;
 		}
-		
+	
+		Date date = new Date();
+		Timestamp now = new Timestamp(date.getTime());
+		HttpSession session = request.getSession();
+		String username = ((Member)session.getAttribute("currentUser")).getUsername();	//get current member
 		String auction_query = "SELECT * FROM Auction WHERE auction_id=" + auctionId + ";";
+		String autobid_query = "SELECT * FROM UpperLimit WHERE auction_id=" + auctionId + ";";
 		
+		boolean goodBid = false;
 		ApplicationDAO dao = new ApplicationDAO();
 		try{
-			Date date = new Date();
-			Timestamp now = new Timestamp(date.getTime());
-			HttpSession session = request.getSession();
-			String username = ((Member)session.getAttribute("currentUser")).getUsername();	//get current member
 			Auction auction = dao.queryDB(auction_query, Auction.class).get(0);
 			
 			//Checking if Bid is a valid entry
 			
 			//if bid is within time limit
 			if (now.before(auction.getEndDateTime())){
-				//if bid amount is high enough
+				//if bid amount is good
 				if (bid >= (auction.getTopBid()+auction.getMinimumIncrement())){
+					goodBid = true;
 					Bid bidobj = new Bid(null, bid, now, username, auctionId);
 					dao.insert(bidobj, Bid.class);
 					//replaced by trigger "topbid"
@@ -93,7 +98,41 @@ public class ProcessBidServlet extends HttpServlet {
 		} finally {
 			dao.closeConnection();
 		}
-	
+		//do auto-bidding amongst competitors
+		if (goodBid){
+			ApplicationDAO dao2 = new ApplicationDAO();
+			try {
+				Auction auction = dao2.queryDB(auction_query, Auction.class).get(0);
+				//find list of all autobids that aren't the original bidder's
+				LinkedList<UpperLimit> upperLimits = dao2.queryDB(autobid_query, UpperLimit.class);
+				int ind = 0;
+				float min_price = auction.getMinimumIncrement() + auction.getTopBid();
+				//autobidders take turns bidding until one "winner" remains
+				if (upperLimits.size() >= 1 && upperLimits.get(0).getBidder() != username){
+					while (upperLimits.size() > 0){
+						if (ind == upperLimits.size())
+							ind = 0;
+						if (upperLimits.get(ind).getUpperLimit() >= min_price){
+							Bid autobid = new Bid(null, min_price, now, upperLimits.get(ind).getBidder(), auctionId);
+							dao2.insert(autobid, Bid.class);
+						}
+						else {
+							upperLimits.remove(ind);
+							--ind;
+						}
+						if (upperLimits.size() == 1){
+							break;
+						}
+						min_price += auction.getMinimumIncrement();
+						++ind;
+					}
+				}
+			} catch (SQLException e){
+				e.printStackTrace();
+			} finally {
+				dao2.closeConnection();
+			}
+		}
 		request.getRequestDispatcher("LoadItemServlet").forward(request, response);
 		return;
 	}
