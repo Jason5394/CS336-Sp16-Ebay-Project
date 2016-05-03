@@ -36,13 +36,16 @@ public class ProcessMessageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String username = ((Member)session.getAttribute("currentUser")).getUsername();
-		String email_query = "SELECT * FROM Email WHERE sender='" + username + "' OR recipient='" + username + "';";
-		LinkedList<Email> emails; 
+		String inbox_email_query = "SELECT * FROM Email WHERE recipient='" + username + "' ORDER BY date_time DESC ;";
+		String sent_email_query = "SELECT * FROM Email WHERE sender='" + username + "' ORDER BY date_time DESC ;";
+		LinkedList<Email> inboxEmails; 
+		LinkedList<Email> sentEmails; 
 		ApplicationDAO dao = new ApplicationDAO();
 		try {
-			emails = dao.queryDB(email_query, Email.class);
-			request.setAttribute("emails", emails);
-			System.out.println("Number of emails: " + emails.size());
+			inboxEmails = dao.queryDB(inbox_email_query, Email.class);
+			sentEmails = dao.queryDB(sent_email_query, Email.class);
+			request.setAttribute("inboxEmails", inboxEmails);
+			request.setAttribute("sentEmails", sentEmails);
 		} catch(SQLException e){
 			e.printStackTrace();
 		} finally {
