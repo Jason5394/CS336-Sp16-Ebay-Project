@@ -79,6 +79,13 @@ public class MakeMessageServlet extends HttpServlet {
 		//Adding more parameters
 		HttpSession session = request.getSession();
 		String username = ((Member)session.getAttribute("currentUser")).getUsername();
+		//Quick error check
+		if(username.endsWith(recipient))
+		{
+			request.setAttribute("noRecipient", "You cannot send yourself a message.");
+			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
+			return;
+		}
 		Date now = new Date();
 		Timestamp dateTime = new Timestamp(now.getTime());	
 		Email email = new Email(null, username, recipient, subject, dateTime, content);

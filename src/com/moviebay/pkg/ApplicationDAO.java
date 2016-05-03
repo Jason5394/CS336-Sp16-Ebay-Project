@@ -85,7 +85,8 @@ public class ApplicationDAO {
 							rs.getTimestamp("creation_datetime"), rs.getString("bidder"), rs.getInt("auction_id")));
 				}
 				else if (cls == Email.class){
-					//TODO
+					answers.add((T) new Email(rs.getInt("email_id"), rs.getString("sender"), rs.getString("recipient"),
+							rs.getString("subject"), rs.getTimestamp("date_time"), rs.getString("content")));
 				}
 				else if (cls == Item.class){
 					answers.add((T) new Item(rs.getInt("item_id"), rs.getInt("auction_id"), (Integer)rs.getObject("movie_length"),
