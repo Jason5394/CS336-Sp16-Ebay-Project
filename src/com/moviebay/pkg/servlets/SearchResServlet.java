@@ -54,7 +54,7 @@ public class SearchResServlet extends HttpServlet {
 		//formulate the string to query DB with.
 		String query_string = "SELECT * FROM Item I, Auction A WHERE I.auction_id=A.auction_id AND "
 				+ "A.end_datetime>NOW() AND "
-				+ "MATCH (I.movie_title, I.description) AGAINST ('" + title + "') AND "
+				+ "I.movie_title='" + title + "' AND "
 				+ "I.seller<>'" + username+ "'";
 		if (genre != null){
 			String genre_query = " AND I.genre='"+ genre + "'";

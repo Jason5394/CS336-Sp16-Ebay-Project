@@ -17,7 +17,6 @@ CREATE TABLE Member (
     password 		VARCHAR(20) NOT NULL,
     is_customer_rep BOOLEAN NOT NULL,
     is_admin 		BOOLEAN NOT NULL,
-    FULLTEXT (username),
     PRIMARY KEY (username)
 )ENGINE = INNODB;
 
@@ -48,7 +47,6 @@ CREATE TABLE Item (
     movie_format	VARCHAR(20) NOT NULL,
 	seller 			VARCHAR(20) NOT NULL,
 	auction_id		INT NOT NULL,
-    FULLTEXT (movie_title, description),
     PRIMARY KEY (item_id),
     FOREIGN KEY (seller) REFERENCES Member(username) ON DELETE CASCADE,
     FOREIGN KEY (auction_id) REFERENCES Auction(auction_id) ON DELETE CASCADE
@@ -73,7 +71,6 @@ CREATE TABLE Alert (
     genre	 		VARCHAR(20),
     movie_format	VARCHAR(20) NOT NULL,
 	owner			VARCHAR(20) NOT NULL,
-    FULLTEXT (movie_title),
     PRIMARY KEY (alert_id),
     FOREIGN KEY (owner) REFERENCES Member(username) ON DELETE CASCADE
 )ENGINE = INNODB;
