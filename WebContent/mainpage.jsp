@@ -66,8 +66,11 @@
 			<ul>
 				<li><a href="ProcessProfileServlet?user=<%=user.getUsername()%>">View Profile</a></li>
 				<li><a href="makeauction.jsp">Auction an Item</a></li>
-				<li><a href="ProcessAlertServlet">Set an Alert</a></li>
-				<li><a href="MakeSalesReport">Generate a Sales Report</a></li>
+				<li><a href="ProcessAlertServlet">My Alerts</a></li>
+				<li><a href="">My Messages</a></li>
+				<%if (user.getAdminStatus() == true){ %>
+					<li><a href="register.jsp">Create Customer Rep Account</a></li>	
+				<%} %>
 			</ul>
 		</div>
 		<div id="mainauctions">

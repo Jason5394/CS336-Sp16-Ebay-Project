@@ -14,6 +14,8 @@
 		Item item = (Item)request.getAttribute("item");
 		Auction auction = (Auction)request.getAttribute("auction");	
 		LinkedList<Bid> bids = (LinkedList<Bid>)request.getAttribute("bids");
+		LinkedList<Item> itemResults = (LinkedList<Item>)request.getAttribute("simItems");
+		LinkedList<Auction> auctionResults = (LinkedList<Auction>)request.getAttribute("simAucts");
 	%>
 	<%	if (now.after(auction.getEndDateTime())){%>
 		<div><h1 style="color:red;">This bid is now closed.</h1></div>
@@ -71,6 +73,36 @@
 				</div>
 			<%} %>
 		</div>
+	</div>
+	<div>
+		<h4><b>Similar Movies Auctioned</b></h4>
+		<table>
+		<tr>
+			<th>Movie Title</th>
+			<th>Genre</th>
+			<th>Length</th>
+			<th>Format</th>
+			<th>Seller</th>
+			<th>Auction End</th>
+		</tr>
+		<% 	
+			for (int i = 0; i < itemResults.size(); ++i){ 
+				String title = itemResults.get(i).getTitle();
+				Integer itemId = itemResults.get(i).getItemId();
+				Integer auctionId = itemResults.get(i).getAuctionId();
+		%>
+		<tr>
+			<td>
+				<a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=title%></a>
+			</td>
+			<td><%= itemResults.get(i).getGenre() %></td>
+			<td><%= itemResults.get(i).getLength() %></td>
+			<td><%= itemResults.get(i).getFormat()%></td>
+			<td><%= itemResults.get(i).getSeller()%></td>
+			<td><%= auctionResults.get(i).getEndDateTime() %></td>
+		</tr>
+		<%} %>
+	</table>
 	</div>
 </body>
 </html>

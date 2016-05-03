@@ -158,4 +158,24 @@
     <servlet-name>MakeUpperLimServlet</servlet-name>
     <url-pattern>/MakeUpperLimServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProcessMessageServlet</display-name>
+    <servlet-name>ProcessMessageServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.ProcessMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProcessMessageServlet</servlet-name>
+    <url-pattern>/ProcessMessageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MakeMessageServlet</display-name>
+    <servlet-name>MakeMessageServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.MakeMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MakeMessageServlet</servlet-name>
+    <url-pattern>/MakeMessageServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
