@@ -70,6 +70,7 @@
 				<li><a href="">My Messages</a></li>
 				<%if (user.getAdminStatus() == true){ %>
 					<li><a href="register.jsp">Create Customer Rep Account</a></li>	
+					<li><a href="makesalesreport">Generate a Sales Report</a></li>
 				<%} %>
 			</ul>
 		</div>
