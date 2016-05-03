@@ -66,7 +66,8 @@
 			<ul>
 				<li><a href="ProcessProfileServlet?user=<%=user.getUsername()%>">View Profile</a></li>
 				<li><a href="makeauction.jsp">Auction an Item</a></li>
-				<li><a href="ProcessAlertServlet">Set an Alert</a></li>
+				<li><a href="ProcessAlertServlet">My Alerts</a></li>
+				<li><a href="ProcessMessageServlet">My Messages</a></li>
 			</ul>
 		</div>
 		<div id="mainauctions">

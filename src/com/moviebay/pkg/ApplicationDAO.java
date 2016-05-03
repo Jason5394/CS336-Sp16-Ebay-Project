@@ -188,7 +188,17 @@ public class ApplicationDAO {
 				System.out.println(prepState.toString());
 			}
 			else if (cls == Email.class){
-				//TODO
+				insertString = "INSERT INTO Email (email_id, sender, recipient, subject, date_time, content) "
+						+ "VALUES(?, ?, ?, ?, ?, ?);";
+				prepState = connection.prepareStatement(insertString);
+				prepState.setNull(1, Types.INTEGER);
+				prepState.setString(2, ((Email) table).getSender());
+				prepState.setString(3, ((Email) table).getRecipient());
+				prepState.setString(4, ((Email) table).getSubject());
+				prepState.setTimestamp(5, ((Email) table).getDateTime());
+				prepState.setString(6, ((Email) table).getContent());
+				
+				System.out.println(prepState.toString());
 			}
 			else if (cls == Item.class){
 				insertString = "INSERT INTO Item (item_id, movie_title, genre, movie_length,"
