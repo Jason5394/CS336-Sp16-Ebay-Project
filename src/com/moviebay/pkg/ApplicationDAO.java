@@ -287,7 +287,4 @@ public class ApplicationDAO {
 		}
 		//dao.closeConnection(connection);	*/
 	}
-	
-	
-
 }
