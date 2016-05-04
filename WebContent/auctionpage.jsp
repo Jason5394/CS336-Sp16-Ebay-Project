@@ -37,7 +37,7 @@
 				<p><%=item.getDescription() %></p>
 			</div>
 			<div>
-				<b>Seller:&nbsp;</b><%=auction.getSeller() %> <br/>
+				<b>Seller:&nbsp;</b><a href="ProcessProfileServlet?user=<%=auction.getSeller() %>"><%=auction.getSeller() %></a> <br/>
 				<b>Auction&nbsp;End:&nbsp;</b><%=auction.getEndDateTime() %> <br/>
 				<b>Minimum&nbsp;Increment:&nbsp;</b><%=auction.getMinimumIncrement() %> <br/>
 				<b>Current&nbsp;Bid:&nbsp;</b><%=auction.getTopBid() %> <br/>
