@@ -60,7 +60,7 @@ public class ModifyAuctionServlet extends HttpServlet {
 		
 		if(!minprice_s.isEmpty()){
 			try{
-				if (Float.parseFloat(minprice_s) < 0);
+				if (Float.parseFloat(minprice_s) < 0)
 					exit = true;
 			} catch (NumberFormatException e){
 				request.setAttribute("badMinimumIncr", "Minimum increment must have a valid price amount.");
@@ -123,6 +123,7 @@ public class ModifyAuctionServlet extends HttpServlet {
 			}
 			update_auction += strings.get(strings.size()-1);
 			update_auction += "WHERE auction_id=" + auctionId + ";";
+			System.out.println(update_auction);
 		}
 		
 		ApplicationDAO dao = new ApplicationDAO();

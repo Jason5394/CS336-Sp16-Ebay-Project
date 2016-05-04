@@ -43,6 +43,8 @@
 				<b>Current&nbsp;Bid:&nbsp;</b><%=auction.getTopBid() %> <br/>
 				<b>Minimum&nbsp;Bid:&nbsp;</b>${auction.getTopBid()+auction.getMinimumIncrement() }<br/>
 				<b>Bidder:&nbsp;</b><%=auction.getBidder() %> <br/>
+				<!-- Only show bid options for users who didn't put up item for auction -->
+				<%if (!user.getUsername().equals(auction.getSeller())){ %>
 				<form action="ProcessBidServlet" method="post">
 					<input type="number" name="bid" step="0.01"/>
 					<input type="submit" value="Bid"/>
@@ -55,6 +57,7 @@
 					<input type="hidden" name="auctionId" value="${auction.getAuctionId()}"/>
 					<input type="hidden" name="itemId" value="${item.getItemId()}"/>
 				</form>
+				<%} %>
 			</div>
 			<div style="color: #FF0000;">${badBid}</div>
 			<div style="color: #FF0000;">${lowBid}</div>
@@ -71,8 +74,12 @@
 							<i>Bid:&nbsp;</i><%=bids.get(i).getBidAmount() %><br/>
 							<i>Date:&nbsp;</i><%=bids.get(i).getCreationDateTime() %><br/>
 							<i>Bidder:&nbsp;</i>
-							<a href="ProcessProfileServlet?user=<%=bids.get(i).getBidder() %>"><%=bids.get(i).getBidder() %></a>
-							<br/><br/>
+							<a href="ProcessProfileServlet?user=<%=bids.get(i).getBidder() %>"><%=bids.get(i).getBidder() %></a><br/>
+							<%if (user.getCusRepStatus()){ %>
+							<a href="DeleteBidServlet?auctionId=<%=auction.getAuctionId()%>&itemId=<%=item.getItemId()%>
+										&bidId=<%=bids.get(i).getBidId()%>">Remove Bid</a><br/>
+							<%} %>
+							<br/>
 						</div>
 					<%} %>
 				</div>

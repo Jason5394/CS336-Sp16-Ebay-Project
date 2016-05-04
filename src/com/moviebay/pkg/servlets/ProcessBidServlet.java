@@ -62,7 +62,8 @@ public class ProcessBidServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String username = ((Member)session.getAttribute("currentUser")).getUsername();	//get current member
 		String auction_query = "SELECT * FROM Auction WHERE auction_id=" + auctionId + ";";
-		String autobid_query = "SELECT * FROM UpperLimit WHERE auction_id=" + auctionId + ";";
+		String autobid_query = "SELECT * FROM UpperLimit WHERE auction_id=" + auctionId + " AND bidder<>'" + username + "';";
+		String bidder_query = "SELECT * FROM UpperLimit WHERE auction_id=" + auctionId + " AND bidder='" + username + "';";
 		
 		boolean goodBid = false;
 		ApplicationDAO dao = new ApplicationDAO();
@@ -105,27 +106,29 @@ public class ProcessBidServlet extends HttpServlet {
 				Auction auction = dao2.queryDB(auction_query, Auction.class).get(0);
 				//find list of all autobids that aren't the original bidder's
 				LinkedList<UpperLimit> upperLimits = dao2.queryDB(autobid_query, UpperLimit.class);
+				//find autobid that is the original bidders, if he set one
+				LinkedList<UpperLimit> bidderupper = dao2.queryDB(bidder_query, UpperLimit.class);
+				if (bidderupper != null)
+					upperLimits.add(bidderupper.get(0));
 				int ind = 0;
 				float min_price = auction.getMinimumIncrement() + auction.getTopBid();
 				//autobidders take turns bidding until one "winner" remains
-				if (upperLimits.size() >= 1 && upperLimits.get(0).getBidder() != username){
-					while (upperLimits.size() > 0){
-						if (ind == upperLimits.size())
-							ind = 0;
-						if (upperLimits.get(ind).getUpperLimit() >= min_price){
-							Bid autobid = new Bid(null, min_price, now, upperLimits.get(ind).getBidder(), auctionId);
-							dao2.insert(autobid, Bid.class);
-						}
-						else {
-							upperLimits.remove(ind);
-							--ind;
-						}
-						if (upperLimits.size() == 1){
-							break;
-						}
-						min_price += auction.getMinimumIncrement();
-						++ind;
+				while (upperLimits.size() > 0){
+					if (ind == upperLimits.size())
+						ind = 0;
+					if (upperLimits.get(ind).getUpperLimit() >= min_price){
+						Bid autobid = new Bid(null, min_price, now, upperLimits.get(ind).getBidder(), auctionId);
+						dao2.insert(autobid, Bid.class);
 					}
+					else {
+						upperLimits.remove(ind);
+						--ind;
+					}
+					if (upperLimits.size() == 1){
+						break;
+					}
+					min_price += auction.getMinimumIncrement();
+					++ind;
 				}
 			} catch (SQLException e){
 				e.printStackTrace();

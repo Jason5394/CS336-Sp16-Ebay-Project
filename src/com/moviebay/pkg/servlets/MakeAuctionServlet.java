@@ -38,11 +38,11 @@ public class MakeAuctionServlet extends HttpServlet {
 		boolean exit = false;		//bool to check if user has inputted an error in the html form
 		
 		//Retrieve item parameters
-		String title = request.getParameter("title").trim();
-		String genre = request.getParameter("genre").trim();
-		String description = request.getParameter("description").trim();
-		String format = request.getParameter("format").trim();
-		String duration_s = request.getParameter("duration").trim();
+		String title = request.getParameter("title");
+		String genre = request.getParameter("genre");
+		String description = request.getParameter("description");
+		String format = request.getParameter("format");
+		String duration_s = request.getParameter("duration");
 		Integer duration = null;
 		if (!duration_s.isEmpty()){
 			try{

@@ -84,8 +84,8 @@ CREATE TABLE Email (
     date_time 			DATETIME NOT NULL,
     content				TEXT,
     PRIMARY KEY (email_id),
-    FOREIGN KEY (sender) REFERENCES Member(username),
-    FOREIGN KEY (recipient) REFERENCES Member(username)
+    FOREIGN KEY (sender) REFERENCES Member(username) ON DELETE CASCADE,
+    FOREIGN KEY (recipient) REFERENCES Member(username) ON DELETE CASCADE
 ) ENGINE = INNODB;
 
 CREATE TABLE UpperLimit (
@@ -93,7 +93,7 @@ CREATE TABLE UpperLimit (
     bidder				VARCHAR(20) NOT NULL,
     upper_limit			FLOAT(8,2) NOT NULL,
     PRIMARY KEY (auction_id, bidder),
-    FOREIGN KEY (auction_id) REFERENCES Auction(auction_id),
-    FOREIGN KEY (bidder) REFERENCES Member(username)
+    FOREIGN KEY (auction_id) REFERENCES Auction(auction_id) ON DELETE CASCADE,
+    FOREIGN KEY (bidder) REFERENCES Member(username) ON DELETE CASCADE
 ) ENGINE = INNODB;
 

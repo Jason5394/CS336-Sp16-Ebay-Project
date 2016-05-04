@@ -32,9 +32,9 @@ public class MakeAlertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String title = request.getParameter("title").trim();
-		String genre = request.getParameter("genre").trim();
-		String format = request.getParameter("format").trim();
+		String title = request.getParameter("title");
+		String genre = request.getParameter("genre");
+		String format = request.getParameter("format");
 		if (title.length() > 50){
 			request.setAttribute("noFormat", "Movie title must be empty, or under 50 characters.");
 			request.getRequestDispatcher("ProcessAlertServlet").forward(request, response);

@@ -34,7 +34,9 @@ public class DeleteAccountServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String username = ((Member)session.getAttribute("currentUser")).getUsername();
-		String delete_Query = "DELETE FROM Member WHERE username=" + username + ";";
+		session.removeAttribute("currentUser");
+		session.invalidate();
+		String delete_Query = "DELETE FROM Member WHERE username='" + username + "';";
 		ApplicationDAO dao = new ApplicationDAO();
 		try{
 			dao.del_or_upd(delete_Query);
@@ -43,8 +45,6 @@ public class DeleteAccountServlet extends HttpServlet {
 		} finally {
 			dao.closeConnection();
 		}
-		session.removeAttribute("currentUser");
-		session.invalidate();
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 

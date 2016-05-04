@@ -217,4 +217,14 @@
     <servlet-name>ModifyAuctionServlet</servlet-name>
     <url-pattern>/ModifyAuctionServlet</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>DeleteAccountServlet</display-name>
+    <servlet-name>DeleteAccountServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.DeleteAccountServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAccountServlet</servlet-name>
+    <url-pattern>/DeleteAccountServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

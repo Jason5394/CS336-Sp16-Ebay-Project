@@ -73,6 +73,7 @@
 					if (user.getAdminStatus() == true) {
 				%>
 				<li><a href="register.jsp">Create Customer Rep Account</a></li>
+				<li><a href="SalesReportServlet">View Sales Report</a></li>
 				<%
 					}
 				%>

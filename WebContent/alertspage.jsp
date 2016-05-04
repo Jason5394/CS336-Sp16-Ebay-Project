@@ -55,7 +55,7 @@
 					String title = alerts.get(i).getMovieTitle();
 					String genre = alerts.get(i).getGenre();
 					String format = alerts.get(i).getMovieFormat();		
-					String href = "SearchResServlet?format=" + format;
+					String href = "SearchResServlet?format=" + format;	//mandatory
 					if (title != null)
 						href += "&title=" + title;
 					if (genre != null)
@@ -67,10 +67,7 @@
 			%>
 			<tr>
 				<td>
-					<form action="RemoveAlertServlet" method="post">
-						<input type="submit" value="Remove"/>
-						<input type="hidden" name="alertId" value="${alerts.get(i).getAlertId()}"/>
-					</form>
+					<a href="RemoveAlertServlet?alertId=<%=alerts.get(i).getAlertId() %>">Remove</a>
 				</td>
 				<td>
 					<a href=<%=href%>><%=title%></a>

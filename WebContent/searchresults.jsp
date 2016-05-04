@@ -50,7 +50,7 @@
 			<td><%= itemResults.get(i).getFormat()%></td>
 			<td><%= itemResults.get(i).getSeller()%></td>
 			<td><%= auctionResults.get(i).getEndDateTime() %></td>
-			<%if (isCusRep){ %>
+			<%if (isCusRep || user.getUsername().equals(auctionResults.get(i).getSeller())){ %>
 			<td>
 				<a href="DeleteAuctionServlet?auctionId=<%=auctionId%>">Delete</a>
 			</td>
