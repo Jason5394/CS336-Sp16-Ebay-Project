@@ -138,6 +138,25 @@ public class ApplicationDAO {
 		return count;
 	}
 	
+	public float floatDB(String query) throws SQLException{
+		float fl = 0.0f;
+		PreparedStatement prepState = null;
+		ResultSet rs = null;
+		try{
+			prepState = connection.prepareStatement(query);
+			System.out.println(prepState.toString());
+			rs = prepState.executeQuery();
+			while(rs.next()){
+				fl = rs.getFloat(1);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		} finally{
+			try { if (rs != null) rs.close(); } catch (SQLException e){};
+			try { if (prepState != null) prepState.close(); } catch (SQLException e){};
+		}
+		return fl;
+	}
 	/*
 	 * Method to insert a row into any table.  The insertion object
 	 * must contain the correct fields consistent with the table in the 
