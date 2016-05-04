@@ -108,7 +108,7 @@
 			</table>
 			</div>
 		</div>
-		<%if (user.getCusRepStatus() || user.getUsername() == auction.getSeller()){ %>
+		<%if (user.getCusRepStatus() || user.getUsername().equals(auction.getSeller())){ %>
 			<div class="changes">
 				<h3>Make Changes</h3>
 				<form action="ModifyAuctionServlet" method="GET">

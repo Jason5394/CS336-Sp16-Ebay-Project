@@ -180,7 +180,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-<<<<<<< HEAD
     <display-name>SalesReportServlet</display-name>
     <servlet-name>SalesReportServlet</servlet-name>
     <servlet-class>com.moviebay.pkg.servlets.SalesReportServlet</servlet-class>
@@ -188,7 +187,8 @@
   <servlet-mapping>
     <servlet-name>SalesReportServlet</servlet-name>
     <url-pattern>/SalesReportServlet</url-pattern>
-=======
+  </servlet-mapping>
+  <servlet>
     <display-name>DeleteAuctionServlet</display-name>
     <servlet-name>DeleteAuctionServlet</servlet-name>
     <servlet-class>com.moviebay.pkg.servlets.DeleteAuctionServlet</servlet-class>
@@ -216,6 +216,5 @@
   <servlet-mapping>
     <servlet-name>ModifyAuctionServlet</servlet-name>
     <url-pattern>/ModifyAuctionServlet</url-pattern>
->>>>>>> 6ec36764b8c3412a82f189b6274572199ee12038
   </servlet-mapping>
 </web-app>

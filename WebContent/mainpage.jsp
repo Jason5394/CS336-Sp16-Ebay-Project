@@ -67,27 +67,10 @@
 						Profile</a></li>
 				<li><a href="makeauction.jsp">Auction an Item</a></li>
 				<li><a href="ProcessAlertServlet">My Alerts</a></li>
-<<<<<<< HEAD
-				<li><a href="">My Messages</a></li>
-				<%if (user.getAdminStatus() == true){ %>
-					<li><a href="register.jsp">Create Customer Rep Account</a></li>	
-					<li><a href="makesalesreport.jsp">Generate a Sales Report</a></li>
-				<%} %>
-			</ul>
-		</div>
-		<div id="mainauctions">
-			<h3>Your Current Auctions</h3>
-			<div class="mainscrollbox">
-				<%for (int i = 0; i < currItems.size(); ++i){ 
-					int itemId = currItems.get(i).getItemId(); 
-					int auctionId = currAucts.get(i).getAuctionId();
-					String seller = currAucts.get(i).getSeller();
-					Float topBid = currAucts.get(i).getTopBid();
-=======
+
 				<li><a href="ProcessMessageServlet">My Messages</a></li>
 				<%
 					if (user.getAdminStatus() == true) {
->>>>>>> 6ec36764b8c3412a82f189b6274572199ee12038
 				%>
 				<li><a href="register.jsp">Create Customer Rep Account</a></li>
 				<%
