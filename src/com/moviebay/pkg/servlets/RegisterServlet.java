@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.moviebay.pkg.ApplicationDAO;
 import com.moviebay.pkg.Member;
-import com.oracle.jrockit.jfr.RequestableEvent;
 
 
 /**
