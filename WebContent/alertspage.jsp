@@ -60,6 +60,10 @@
 						href += "&title=" + title;
 					if (genre != null)
 						href += "&genre=" + genre;
+					if (title == null || title.isEmpty())
+						title = "ANY";
+					if (genre == null)
+						genre = "ANY";
 			%>
 			<tr>
 				<td>
@@ -71,8 +75,8 @@
 				<td>
 					<a href=<%=href%>><%=title%></a>
 				</td>
-				<td><%= alerts.get(i).getGenre() %></td>
-				<td><%= alerts.get(i).getMovieFormat()%></td>
+				<td><%= genre%></td>
+				<td><%= format%></td>
 			</tr>
 			<%} %>
 		</table>

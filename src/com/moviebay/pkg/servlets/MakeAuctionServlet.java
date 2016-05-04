@@ -38,11 +38,11 @@ public class MakeAuctionServlet extends HttpServlet {
 		boolean exit = false;		//bool to check if user has inputted an error in the html form
 		
 		//Retrieve item parameters
-		String title = request.getParameter("title");
-		String genre = request.getParameter("genre");
-		String description = request.getParameter("description");
-		String format = request.getParameter("format");
-		String duration_s = request.getParameter("duration");
+		String title = request.getParameter("title").trim();
+		String genre = request.getParameter("genre").trim();
+		String description = request.getParameter("description").trim();
+		String format = request.getParameter("format").trim();
+		String duration_s = request.getParameter("duration").trim();
 		Integer duration = null;
 		if (!duration_s.isEmpty()){
 			try{
@@ -91,8 +91,8 @@ public class MakeAuctionServlet extends HttpServlet {
 		}
 		
 		//Tests if user has filled in the entries that are required.
-		if (title.isEmpty()){
-			request.setAttribute("noTitle", "Movie title field must be filled.");
+		if (title.isEmpty() || title.length() > 50){
+			request.setAttribute("noTitle", "Movie title field must be between 1-50 characters.");
 			exit = true;
 		}
 		if (format == null){

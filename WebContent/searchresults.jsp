@@ -9,7 +9,14 @@
 </head>
 <body>
 	<div><a href="ProcessMainPageServlet">Main Page</a></div>
-	<% 	LinkedList<Item> itemResults = (LinkedList<Item>)request.getAttribute("itemResults");
+	<% 	
+		Member user = (Member)session.getAttribute("currentUser");
+		boolean isCusRep = user.getCusRepStatus();
+		String title = request.getParameter("title");
+		String genre = request.getParameter("genre");
+		String duration = request.getParameter("duration");
+		String format = request.getParameter("format");
+		LinkedList<Item> itemResults = (LinkedList<Item>)request.getAttribute("itemResults");
 		LinkedList<Auction> auctionResults = (LinkedList<Auction>)request.getAttribute("auctionResults");
 		if (itemResults == null)
 			out.println("No search results returned.");
@@ -24,22 +31,30 @@
 			<th>Format</th>
 			<th>Seller</th>
 			<th>Auction End</th>
+			<%if (isCusRep){ %>
+			<th>Delete</th>
+			<%} %>
 		</tr>
 		<% 	
 			for (int i = 0; i < itemResults.size(); ++i){ 
-				String title = itemResults.get(i).getTitle();
+				String titleres = itemResults.get(i).getTitle();
 				Integer itemId = itemResults.get(i).getItemId();
 				Integer auctionId = itemResults.get(i).getAuctionId();
 		%>
 		<tr>
 			<td>
-				<a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=title%></a>
+				<a href="LoadItemServlet?itemId=<%=itemId%>&auctionId=<%=auctionId%>"><%=titleres%></a>
 			</td>
 			<td><%= itemResults.get(i).getGenre() %></td>
 			<td><%= itemResults.get(i).getLength() %></td>
 			<td><%= itemResults.get(i).getFormat()%></td>
 			<td><%= itemResults.get(i).getSeller()%></td>
 			<td><%= auctionResults.get(i).getEndDateTime() %></td>
+			<%if (isCusRep){ %>
+			<td>
+				<a href="DeleteAuctionServlet?auctionId=<%=auctionId%>">Delete</a>
+			</td>
+			<%} %>
 		</tr>
 		<%}} %>
 	</table>

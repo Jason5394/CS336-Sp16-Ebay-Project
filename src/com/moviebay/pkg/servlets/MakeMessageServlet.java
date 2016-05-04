@@ -37,14 +37,14 @@ public class MakeMessageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String recipient = request.getParameter("recipient");
-		String subject = request.getParameter("subject");
-		String content = request.getParameter("content");
+		String recipient = request.getParameter("recipient").trim();
+		String subject = request.getParameter("subject").trim();
+		String content = request.getParameter("content").trim();
 		
 		//Error checking
 		if (recipient == null || recipient.trim() == "")
 		{
-			request.setAttribute("noRecipient", "Must specify another user as the recipient of your message.");
+			request.setAttribute("error", "Must specify another user as the recipient of your message.");
 			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
 			return;
 		}
@@ -61,7 +61,7 @@ public class MakeMessageServlet extends HttpServlet {
 		}
 		if (members == null || members.size() == 0)
 		{
-			request.setAttribute("noRecipient", "Invalid Recipient. Specified User does not exist.");
+			request.setAttribute("error", "Invalid Recipient. Specified User does not exist.");
 			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
 			return;
 		}
@@ -70,9 +70,15 @@ public class MakeMessageServlet extends HttpServlet {
 		{
 			subject = "No Subject";
 		}
+		if (subject.length() > 100)
+		{
+			request.setAttribute("error", "Subject must be under 100 characters.");
+			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
+			return;
+		}
 		if(content == null || content.trim() == "")
 		{
-			request.setAttribute("noContent", "Your message must have a body.");
+			request.setAttribute("error", "Your message must have a body.");
 			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
 			return;
 		}
@@ -82,7 +88,7 @@ public class MakeMessageServlet extends HttpServlet {
 		//Quick error check
 		if(username.endsWith(recipient))
 		{
-			request.setAttribute("noRecipient", "You cannot send yourself a message.");
+			request.setAttribute("error", "You cannot send yourself a message.");
 			request.getRequestDispatcher("ProcessMessageServlet").forward(request, response);
 			return;
 		}

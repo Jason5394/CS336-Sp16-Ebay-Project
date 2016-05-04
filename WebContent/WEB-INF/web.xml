@@ -180,6 +180,7 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+<<<<<<< HEAD
     <display-name>SalesReportServlet</display-name>
     <servlet-name>SalesReportServlet</servlet-name>
     <servlet-class>com.moviebay.pkg.servlets.SalesReportServlet</servlet-class>
@@ -187,5 +188,34 @@
   <servlet-mapping>
     <servlet-name>SalesReportServlet</servlet-name>
     <url-pattern>/SalesReportServlet</url-pattern>
+=======
+    <display-name>DeleteAuctionServlet</display-name>
+    <servlet-name>DeleteAuctionServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.DeleteAuctionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAuctionServlet</servlet-name>
+    <url-pattern>/DeleteAuctionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteBidServlet</display-name>
+    <servlet-name>DeleteBidServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.DeleteBidServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteBidServlet</servlet-name>
+    <url-pattern>/DeleteBidServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModifyAuctionServlet</display-name>
+    <servlet-name>ModifyAuctionServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.ModifyAuctionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifyAuctionServlet</servlet-name>
+    <url-pattern>/ModifyAuctionServlet</url-pattern>
+>>>>>>> 6ec36764b8c3412a82f189b6274572199ee12038
   </servlet-mapping>
 </web-app>
