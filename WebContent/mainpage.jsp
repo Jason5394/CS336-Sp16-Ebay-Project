@@ -178,11 +178,11 @@
 					</td>
 				</tr>
 			</table>
-
-
-
-
 		</div>
+	</div>
+	<div style="float: left;">
+		Click here to
+		<a href="DeleteAccountServlet">delete your account</a>
 	</div>
 	<div id="footer">
 		Logged in as:

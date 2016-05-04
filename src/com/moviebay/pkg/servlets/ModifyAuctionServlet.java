@@ -110,7 +110,7 @@ public class ModifyAuctionServlet extends HttpServlet {
 		if (auctionLength != null || !minprice_s.isEmpty() || !hiddenmin_s.isEmpty()){
 			LinkedList<String> strings = new LinkedList<String>(); 
 			update_auction += "UPDATE Auction SET ";
-			if (!auctionLength.isEmpty())
+			if (auctionLength != null)
 				strings.add(" end_datetime= DATE_ADD(end_datetime, INTERVAL " + auctionLength + " DAY) ");
 			if (!minprice_s.isEmpty())
 				strings.add(" minimum_increment_price='" + minprice_s + "' ");
