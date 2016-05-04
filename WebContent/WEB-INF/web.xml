@@ -180,6 +180,15 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>SalesReportServlet</display-name>
+    <servlet-name>SalesReportServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.SalesReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SalesReportServlet</servlet-name>
+    <url-pattern>/SalesReportServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <display-name>DeleteAuctionServlet</display-name>
     <servlet-name>DeleteAuctionServlet</servlet-name>
     <servlet-class>com.moviebay.pkg.servlets.DeleteAuctionServlet</servlet-class>

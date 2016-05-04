@@ -138,8 +138,8 @@ public class ApplicationDAO {
 		return count;
 	}
 	
-	public float floatDB(String query) throws SQLException{
-		float fl = 0.0f;
+	public Float floatDB(String query) throws SQLException{
+		Float fl = 0.0f;
 		PreparedStatement prepState = null;
 		ResultSet rs = null;
 		try{

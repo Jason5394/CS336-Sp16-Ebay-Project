@@ -67,6 +67,7 @@
 						Profile</a></li>
 				<li><a href="makeauction.jsp">Auction an Item</a></li>
 				<li><a href="ProcessAlertServlet">My Alerts</a></li>
+
 				<li><a href="ProcessMessageServlet">My Messages</a></li>
 				<%
 					if (user.getAdminStatus() == true) {
