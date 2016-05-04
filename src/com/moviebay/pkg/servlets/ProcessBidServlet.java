@@ -108,7 +108,7 @@ public class ProcessBidServlet extends HttpServlet {
 				LinkedList<UpperLimit> upperLimits = dao2.queryDB(autobid_query, UpperLimit.class);
 				//find autobid that is the original bidders, if he set one
 				LinkedList<UpperLimit> bidderupper = dao2.queryDB(bidder_query, UpperLimit.class);
-				if (bidderupper != null)
+				if (bidderupper.size() > 0)
 					upperLimits.add(bidderupper.get(0));
 				int ind = 0;
 				float min_price = auction.getMinimumIncrement() + auction.getTopBid();

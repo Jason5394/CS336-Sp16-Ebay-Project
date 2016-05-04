@@ -58,7 +58,8 @@ public class LoadItemServlet extends HttpServlet {
 				request.setAttribute("bids", bids);
 				simMovieQuery = "SELECT * FROM Item i, Auction a WHERE i.auction_id=a.auction_id AND i.item_id<>" + itemId + " AND "
 						+ "a.auction_id<>" + auctionId + " AND a.end_datetime > NOW() AND ("
-						+ "i.movie_title='" + item.getTitle() + "' OR i.genre='" + item.getGenre() + "');";
+						+ "i.movie_title LIKE '%" + item.getTitle() + "%' OR i.description LIKE '%" + item.getTitle() + "%' "
+								+ "OR i.genre='" + item.getGenre() + "');";
 				similarItems = dao.queryDB(simMovieQuery, Item.class);
 				similarAucts = dao.queryDB(simMovieQuery, Auction.class);
 				request.setAttribute("simItems", similarItems);

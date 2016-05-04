@@ -39,7 +39,6 @@ public class SearchResServlet extends HttpServlet {
 		
 		//Get username of current session
 		HttpSession session = request.getSession();
-		String username = ((Member)session.getAttribute("currentUser")).getUsername();
 		
 		//retrieve user's search parameters
 		title = request.getParameter("title");
@@ -54,7 +53,7 @@ public class SearchResServlet extends HttpServlet {
 		//formulate the string to query DB with.
 		String query_string = "SELECT * FROM Item I, Auction A WHERE I.auction_id=A.auction_id AND "
 				+ "A.end_datetime>NOW() AND "
-				+ "I.movie_title LIKE '%" + title + "%'";
+				+ "(I.movie_title LIKE '%" + title + "%' OR I.description LIKE '%" + title + "%');";
 		if (genre != null){
 			String genre_query = " AND I.genre='"+ genre + "'";
 			query_string = query_string.concat(genre_query);
