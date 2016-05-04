@@ -178,4 +178,34 @@
     <servlet-name>MakeMessageServlet</servlet-name>
     <url-pattern>/MakeMessageServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteAuctionServlet</display-name>
+    <servlet-name>DeleteAuctionServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.DeleteAuctionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAuctionServlet</servlet-name>
+    <url-pattern>/DeleteAuctionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteBidServlet</display-name>
+    <servlet-name>DeleteBidServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.DeleteBidServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteBidServlet</servlet-name>
+    <url-pattern>/DeleteBidServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModifyAuctionServlet</display-name>
+    <servlet-name>ModifyAuctionServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.ModifyAuctionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifyAuctionServlet</servlet-name>
+    <url-pattern>/ModifyAuctionServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
