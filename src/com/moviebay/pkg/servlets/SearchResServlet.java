@@ -37,9 +37,6 @@ public class SearchResServlet extends HttpServlet {
 		String format;
 		String title;
 		
-		//Get username of current session
-		HttpSession session = request.getSession();
-		
 		//retrieve user's search parameters
 		title = request.getParameter("title");
 		/*if (title.isEmpty()){	//User must have entered at least a title, otherwise refresh page
