@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
-
 import com.moviebay.pkg.ApplicationDAO;
 import com.moviebay.pkg.Auction;
 import com.moviebay.pkg.Bid;

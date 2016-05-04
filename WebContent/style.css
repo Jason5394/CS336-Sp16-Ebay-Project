@@ -31,11 +31,28 @@ a, a:visited{
 	text-align:center;
 }
 
+div.auction{
+	float:left;
+	width:45%;
+	display:inline-block;
+}
+
+div.changes{
+	padding:10px;
+	float:right;
+	border:1px solid #ccc;
+	width:45%;
+	display:inline-block;
+}
+
+div.container {
+	overflow:hidden;
+}
+
 .scrollbox{
 	height:300px;
 	width:450px;
-	border:1px solid
-	#ccc;
+	border:1px solid #ccc;
 	font:16px/26px Georgia, Garamond, Serif;
 	overflow:auto;
 }
