@@ -9,6 +9,7 @@
 </head>
 <body>
 	<%	
+		Member user = (Member)session.getAttribute("currentUser");
 		Date date = new Date();
 		Timestamp now = new Timestamp(date.getTime());
 		Item item = (Item)request.getAttribute("item");
@@ -107,62 +108,64 @@
 			</table>
 			</div>
 		</div>
-		<div class="changes">
-			<h3>Make Changes</h3>
-			<form action="ModifyAuctionServlet" method="GET">
-				<h3>Modify Information</h3>
-				Movie Title&nbsp;<input type="text" name="title"/>
-				<br></br>
-				Duration&nbsp;<input type="number" name="duration" min="0" step="1"/>  
-				<br></br>
-				<select name="genre">
-					<option selected="selected" disabled="disabled">Genre</option>
-					<option value="action">Action</option>
-					<option value="adventure">Adventure</option>
-					<option value="animation">Animation</option>
-					<option value="comedy">Comedy</option>
-					<option value="documentary">Documentary</option>
-					<option value="drama">Drama</option>
-					<option value="horror">Horror</option>
-					<option value="mystery">Mystery</option>
-					<option value="romance">Romance</option>
-					<option value="scifi">Sci-fi</option>
-					<option value="thriller">Thriller</option>
-				</select>
-				<br></br>
-				<select name="format">
-					<option selected="selected" disabled="disabled">Format*</option>
-					<option value="bluray">BluRay</option>
-					<option value="dvd">DVD</option>
-					<option value="vhs">VHS</option>
-				</select>
-				<br></br>
-				<textarea rows="5" cols="50" name="description" placeholder="Change description of movie." ></textarea>
-				<br></br>
-				<h3>Auction Information</h3>
-				<select name="auctionLength">
-					<option selected="selected" disabled="disabled">Add Time</option>
-					<option value="1">1 day</option>
-					<option value="3">3 days</option>
-					<option value="7">7 days</option>
-					<option value="14">14 days</option>
-				</select>
-				<br></br>
-				Minimum Increment Price&nbsp;<input type="number" name="minprice" min="0.01" step="0.01"/>
-				<br></br>
-				Hidden Minimum Price&nbsp;<input type="number" name="hiddenmin" min="0.00" step="0.01"/>
-				<br></br>
-				<input type="submit" value="Make Changes"/>
-				
-				<input type="hidden" value="<%=item.getItemId()%>" name="itemId"/>
-				<input type="hidden" value="<%=auction.getAuctionId()%>" name="auctionId"/>
-			</form>
-			<div style="color: #FF0000;">${badDuration}</div>
-			<div style="color: #FF0000;">${badMinimumIncr}</div>
-			<div style="color: #FF0000;">${badHiddenMin}</div>
-			<div style="color: #009900;">${updatedItem}</div>
-			<div style="color: #009900;">${updatedAuction}</div>
-		</div>
+		<%if (user.getCusRepStatus() || user.getUsername() == auction.getSeller()){ %>
+			<div class="changes">
+				<h3>Make Changes</h3>
+				<form action="ModifyAuctionServlet" method="GET">
+					<h3>Modify Information</h3>
+					Movie Title&nbsp;<input type="text" name="title"/>
+					<br></br>
+					Duration&nbsp;<input type="number" name="duration" min="0" step="1"/>  
+					<br></br>
+					<select name="genre">
+						<option selected="selected" disabled="disabled">Genre</option>
+						<option value="action">Action</option>
+						<option value="adventure">Adventure</option>
+						<option value="animation">Animation</option>
+						<option value="comedy">Comedy</option>
+						<option value="documentary">Documentary</option>
+						<option value="drama">Drama</option>
+						<option value="horror">Horror</option>
+						<option value="mystery">Mystery</option>
+						<option value="romance">Romance</option>
+						<option value="scifi">Sci-fi</option>
+						<option value="thriller">Thriller</option>
+					</select>
+					<br></br>
+					<select name="format">
+						<option selected="selected" disabled="disabled">Format*</option>
+						<option value="bluray">BluRay</option>
+						<option value="dvd">DVD</option>
+						<option value="vhs">VHS</option>
+					</select>
+					<br></br>
+					<textarea rows="5" cols="50" name="description" placeholder="Change description of movie." ></textarea>
+					<br></br>
+					<h3>Auction Information</h3>
+					<select name="auctionLength">
+						<option selected="selected" disabled="disabled">Add Time</option>
+						<option value="1">1 day</option>
+						<option value="3">3 days</option>
+						<option value="7">7 days</option>
+						<option value="14">14 days</option>
+					</select>
+					<br></br>
+					Minimum Increment Price&nbsp;<input type="number" name="minprice" min="0.01" step="0.01"/>
+					<br></br>
+					Hidden Minimum Price&nbsp;<input type="number" name="hiddenmin" min="0.00" step="0.01"/>
+					<br></br>
+					<input type="submit" value="Make Changes"/>
+					
+					<input type="hidden" value="<%=item.getItemId()%>" name="itemId"/>
+					<input type="hidden" value="<%=auction.getAuctionId()%>" name="auctionId"/>
+				</form>
+				<div style="color: #FF0000;">${badDuration}</div>
+				<div style="color: #FF0000;">${badMinimumIncr}</div>
+				<div style="color: #FF0000;">${badHiddenMin}</div>
+				<div style="color: #009900;">${updatedItem}</div>
+				<div style="color: #009900;">${updatedAuction}</div>
+			</div>
+		<%} %>
 	</div>
 	
 </body>
