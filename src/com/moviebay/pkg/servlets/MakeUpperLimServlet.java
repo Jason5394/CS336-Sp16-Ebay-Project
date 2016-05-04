@@ -32,9 +32,9 @@ public class MakeUpperLimServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String upperLimit = request.getParameter("upperLimit");
-		String auctionId = request.getParameter("auctionId");	
-		String itemId = request.getParameter("itemId");
+		String upperLimit = request.getParameter("upperLimit").trim();
+		String auctionId = request.getParameter("auctionId").trim();	
+		String itemId = request.getParameter("itemId").trim();
 		
 		request.setAttribute("auctionId", auctionId);
 		request.setAttribute("itemId", itemId);

@@ -33,28 +33,28 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LinkedList<Member> members;
-		String user = request.getParameter("username");
-		String firstname = request.getParameter("firstname");
-		String lastname  = request.getParameter("lastname");
-		String password  = request.getParameter("password");
+		String user = request.getParameter("username").trim();
+		String firstname = request.getParameter("firstname").trim();
+		String lastname  = request.getParameter("lastname").trim();
+		String password  = request.getParameter("password").trim();
 		
 		//Tests if user has filled in ALL forms.  Will redirect to register page with error message if forms are not 
 		//all filled.
 		boolean exit = false;
-		if (user.isEmpty()){
-			request.setAttribute("noUsername", "Username field must be filled.");
+		if (user.isEmpty() || user.length() > 20){
+			request.setAttribute("noUsername", "Username field must be between 1-20 characters.");
 			exit = true;
 		}
-		if (firstname.isEmpty()){
-			request.setAttribute("noFirstName", "First name field must be filled.");
+		if (firstname.isEmpty() || firstname.length() > 20){
+			request.setAttribute("noFirstName", "First name field must be between 1-20 characters.");
 			exit = true;
 		}
-		if (lastname.isEmpty()){
-			request.setAttribute("noLastName", "Last name field must be filled.");
+		if (lastname.isEmpty() || lastname.length() > 20){
+			request.setAttribute("noLastName", "Last name field must be between 1-20 characters.");
 			exit = true;
 		}
-		if (password.isEmpty()){
-			request.setAttribute("noPassword", "Password field must be filled.");
+		if (password.isEmpty() || password.length() > 20){
+			request.setAttribute("noPassword", "Password field must be between 1-20 characters.");
 			exit = true;
 		}
 		if (exit){

@@ -28,8 +28,7 @@
 				placeholder="Enter message body here."></textarea>
 			<input type="submit" value="Submit" />
 		</form>
-		<div style="color: #FF0000;">${noRecipient}</div>
-		<div style="color: #FF0000;">${noContent}</div>
+		<div style="color: #FF0000;">${error}</div>
 		<div style="color: #009900;">${goodEmail}</div>
 	</div>
 	<div>
