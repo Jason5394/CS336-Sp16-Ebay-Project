@@ -178,4 +178,14 @@
     <servlet-name>MakeMessageServlet</servlet-name>
     <url-pattern>/MakeMessageServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SalesReportServlet</display-name>
+    <servlet-name>SalesReportServlet</servlet-name>
+    <servlet-class>com.moviebay.pkg.servlets.SalesReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SalesReportServlet</servlet-name>
+    <url-pattern>/SalesReportServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
