@@ -23,7 +23,7 @@ David Kollender
   - Send messages to users
   - Set "alerts" for items users want to see auctioned
 
-  Along with the above, special accounts like Admins and Customer Representatives have extra features.  Admins can create new customer representative accounts, while customer reps can delete illegal auctions and modify any info about existing auctions.
+Along with the above, special accounts like Admins and Customer Representatives have extra features.  Admins can create new customer representative accounts, while customer reps can delete illegal auctions and modify any info about existing auctions.
 
 Screenshots of the main components of the application:
   http://imgur.com/a/GiONj
