@@ -14,11 +14,12 @@ David Kollender
   The application follows the MVC design pattern.  JSP's act as the View, generating the content for each page.  In most cases, there is a corresponding servlet that pairs with each JSP, which performs the db access methods (such as querying the db, updating and deleting entries), as well as the relevant business logic for each feature.   
   
 ####Main Features
+
   - Create/Delete User accounts
   - Auction movies
   - Bid on movies
-  - Search for movies
-  - Send "emails" to other users
+  - Search for movies with specifications
   - View user profiles
+  - Send messages to users
   
-  Along with the above features, special accounts like Admins and Customer Representatives have extra features.  Admins can create new customer representative accounts, while customer reps can delete illegal auctions and modify any info about existing auctions.
+  Along with the above, special accounts like Admins and Customer Representatives have extra features.  Admins can create new customer representative accounts, while customer reps can delete illegal auctions and modify any info about existing auctions.
